@@ -1,0 +1,150 @@
+/* 
+/*
+ * mruby Bridge  
+ * $Id: Sample.cdl 1846 2012-11-11 02:35:54Z ritsumei-takuya $
+ *
+ * 
+ *
+ *  +----------------------------------+           +---------------------+          +-------------+
+ *  | mruby object                     |           |                     |          |             |
+ *  |taskBridge=                       |  sTask    |  tMrubyBridgesTask  |  sTask   |   tTask     |
+ *  | TMrubyBridgesTask("TaskBridge")  |==========>|     TaskBridge      |----------|> MainTask   |
+ *  |                                  |  の関数群 |                     |cCall eEnt|             |
+ *  |                                  |           |                     |          |             |
+ *  +----------------------------------+           +---------------------+          +-------------+
+ *
+ *・シグニチャ記述
+ *
+ *   sTask … 関数インタフェースの定義
+ *            慣習として接頭文字 s を付加する
+ * 
+ *    シグニチャ sTaskにはactivate(タスク起動)などタスク操作がある
+ *
+ *・セルタイプ記述
+ *
+ *   tMrubyBridgesTask … ブリッジセルのセルタイプ (MrubyBridgePlugin により生成)
+ *   tTask             … 呼び先のセルタイプ
+ *
+ */
+/*
+ *  カーネルオブジェクトの定義
+ */
+import(<kernel.cdl>);
+
+/*
+ *  ターゲット依存のシステムサービスコンポーネントの定義
+ */
+import(<target_syssvc_decl.cdl>);
+
+/*
+ *  シリアルドライバの定義
+ */
+import(<syssvc/tSerialPort.cdl>);
+
+/*
+ *  システムログ機能の定義
+ */
+import(<syssvc/tSysLog.cdl>);
+
+/*
+ *  システムログタスクの定義
+ */
+import(<syssvc/tLogTask.cdl>);
+
+/*
+ *  ターゲット依存のシステムサービスコンポーネントの組み上げ記述
+ */
+import(<target_syssvc_inst.cdl>);
+
+/* mrubyの本体 */
+import(<tMruby.cdl>);
+
+/*
+ *  組み上げ記述
+ */
+
+cell nMruby::tMruby Mruby{
+	mrubyFile="mrb_sample_kernel_obj.rb";
+	cSerialPort = SerialPort1.eSerialPort;
+};
+
+
+cell tSerialPort SerialPort1 {
+	/* 呼び口の結合 */
+	cSIOPort = SIOPortTarget.eSIOPort;
+	receiveBufferSize = 256;
+	sendBufferSize = 256;
+};
+
+cell tSysLog SysLog {
+	/* 呼び口の結合 */
+	cPutLog = PutLogTarget.ePutLog;
+	logBufferSize = 32;
+};
+
+cell tLogTask LogTask {
+	/* 呼び口の結合 */
+	cSerialPort = SerialPort1.eSerialPort;
+	cnSerialPort = SerialPort1.enSerialPort;
+	cSysLog = SysLog.eSysLog;
+	cPutLog = PutLogTarget.ePutLog;
+	/* 属性の設定 */
+	taskAttribute = C_EXP("TA_ACT");
+	priority = 3;
+	stackSize = LogTaskStackSize;
+	
+};
+
+cell tKernel ASPKernel{
+};
+
+cell tTask MrubyTask {
+	/* 呼び口の結合 */
+	cBody = Mruby.eMrubyBody;
+	/* 属性の設定 */
+	taskAttribute = C_EXP("TA_ACT");
+	priority = C_EXP("MAIN_PRIORITY");
+	stackSize = C_EXP("STACK_SIZE");
+};
+
+/*
+ * シグニチャプラグイン MrubyBridgePlugin の呼び出し。
+ *
+ * MrubyBridgePlugin により
+ * ・ブリッジのセルタイプ tMrubyBridgesTask の定義が 
+ *   gen/tmp_MrubyBridgePlugin_0.cdl に生成される。
+ *   sTask の部分は、シグニチャ名。
+ * ・セルタイプコード gen/nMruby_STask.c に、mruby の 
+ *   TMrubyBridgesTask クラス定義コードが生成される。
+ */
+
+/*
+ * ブリッジセルの設置
+ *
+ * mruby から、TMrubyBridgesTask クラスの Bridge として参照される。
+ *   ex) taskBridge = TECS::STask.new "TaskBridge"
+ *
+ * cTECS の signature、すなわち sTask の関数が、STask
+ * のインスタンスメソッドとして定義され、呼び出すことができる。
+ *   ex) taskBridge.activate
+ */
+
+celltype tTaskBody{
+	entry sTaskBody eTaskBody;
+};
+
+cell tTaskBody MainTaskBody{
+};
+
+cell tTask MainTask {
+	/* 呼び口の結合 */
+	cBody = MainTaskBody.eTaskBody;
+	/* 属性の設定 */
+	priority = 1;
+	stackSize = C_EXP("STACK_SIZE");
+};
+//generate( MrubyBridgePlugin, sTask, "include=activate" );
+generate( MrubyBridgePlugin, sTask, "" );
+cell nMruby::STask TaskBridge {
+	cTECS = MainTask.eTask;
+};

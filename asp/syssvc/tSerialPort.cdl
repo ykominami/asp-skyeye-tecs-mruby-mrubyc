@@ -1,0 +1,112 @@
+/*
+ *  @(#) $Id: tSerialPort.cdl 439 2009-07-22 09:08:30Z ertl-takuya $
+ */
+
+/*
+ *		シリアルインタフェースドライバのコンポーネント記述ファイル
+ */
+
+typedef struct {
+	uint_t		reacnt;				/* 受信バッファ中の文字数 */
+	uint_t		wricnt;				/* 送信バッファ中の文字数 */
+} T_SERIAL_RPOR;
+
+signature sSerialPort {
+	ER		open(void);
+	ER		close(void);
+	ER_UINT	read([out,size_is(length)] char *buffer, [in] uint_t length);
+	ER_UINT	write([in,size_is(length)] const char *buffer, [in] uint_t length);
+	ER		control([in] uint_t ioControl);
+	ER		refer([out] T_SERIAL_RPOR *pk_rpor);
+};
+
+signature snSerialPort {
+	bool_t	getChar([out] char *p_char);
+};
+
+/* シリアルインタフェースドライバの動作制御用のための定数 */
+const uint_t IOCTL_NULL	= 0;		/* 指定なし */
+const uint_t IOCTL_ECHO	= 0x0001;	/* 受信した文字をエコーバック */
+const uint_t IOCTL_CRLF	= 0x0010;	/* LFを送信する前にCRを付加 */
+const uint_t IOCTL_FCSND = 0x0100;	/* 送信に対してフロー制御を行う */
+const uint_t IOCTL_FCANY = 0x0200;	/* どのような文字でも送信再開 */
+const uint_t IOCTL_FCRCV = 0x0400;	/* 受信に対してフロー制御を行う */
+
+celltype tSerialPortMain {
+	entry sSerialPort	eSerialPort;
+	entry snSerialPort	enSerialPort;
+
+ 	call sSIOPort		cSIOPort;	/* 簡易SIOドライバとの接続 */
+	entry siSIOCBR		eiSIOCBR;
+	
+	call sSemaphore  cSendSemaphore;
+	call siSemaphore ciSendSemaphore;
+
+	call sSemaphore  cReceiveSemaphore;
+	call siSemaphore ciReceiveSemaphore;
+	
+	attr {
+		uint_t	receiveBufferSize = 256;	/* 受信バッファサイズ */
+		uint_t	sendBufferSize = 256;	/* 送信バッファサイズ */
+	};
+	var {
+		bool_t	openFlag = C_EXP("false");	/* オープン済みフラグ */
+		bool_t	errorFlag;			/* エラーフラグ */
+		uint_t	ioControl;				/* 動作制御の設定値 */
+
+		[size_is(receiveBufferSize)] char	*receiveBuffer;	/* 受信バッファ */
+		uint_t	receiveReadPointer;		/* 受信バッファ読出しポインタ */
+		uint_t	receiveWritePointer;		/* 受信バッファ書込みポインタ */
+		uint_t	receiveCount;			/* 受信バッファ中の文字数 */
+		char	receiveFlowControl;			/* 送るべきSTART/STOP */
+		bool_t	receiveStopped;		/* STOPを送った状態か？ */
+
+		[size_is(sendBufferSize)] char	*sendBuffer;	/* 送信バッファ */
+		uint_t	sendReadPointer;		/* 送信バッファ読出しポインタ */
+		uint_t	sendWritePointer;		/* 送信バッファ書込みポインタ */
+		uint_t	sendCount;			/* 送信バッファ中の文字数 */
+		bool_t	sendStopped;		/* STOPを受け取った状態か？ */
+	};
+};
+
+composite tSerialPort{
+	entry sSerialPort	eSerialPort;
+	entry snSerialPort	enSerialPort;
+
+ 	call sSIOPort		cSIOPort;	/* 簡易SIOドライバとの接続 */
+	entry siSIOCBR		eiSIOCBR;
+	
+	attr {
+		uint_t	receiveBufferSize = 256;	/* 受信バッファサイズ */
+		uint_t	sendBufferSize = 256;	/* 送信バッファサイズ */
+	};
+	/* 受信用のセマフォ */
+	cell tSemaphore ReceiveSemaphore{
+		attribute = C_EXP("TA_NULL");
+		count = 0;
+		max =1;
+	};
+	/* 送信用のセマフォ */
+	cell tSemaphore SendSemaphore{
+		attribute = C_EXP("TA_NULL");
+		count = 1;
+		max =1;
+	};
+	/* シリアルポートの制御部 */
+	cell tSerialPortMain SerialPortMain{
+		/* 呼び口の結合 */
+		cReceiveSemaphore  = ReceiveSemaphore.eSemaphore;
+		ciReceiveSemaphore = ReceiveSemaphore.eiSemaphore;
+		cSendSemaphore  = SendSemaphore.eSemaphore;
+		ciSendSemaphore = SendSemaphore.eiSemaphore;
+		/* 呼び口のエクスポート */
+		cSIOPort => composite.cSIOPort;
+		/* 属性 */
+		receiveBufferSize = composite.receiveBufferSize;
+		sendBufferSize = composite.sendBufferSize;
+	};
+	/* 受け口 */
+	composite.eSerialPort  => SerialPortMain.eSerialPort;
+	composite.enSerialPort => SerialPortMain.enSerialPort;
+	composite.eiSIOCBR     => SerialPortMain.eiSIOCBR;
+};

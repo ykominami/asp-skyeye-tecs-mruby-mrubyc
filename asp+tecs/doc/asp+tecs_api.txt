@@ -1,0 +1,1388 @@
+1.カーネルオブジェクトのコンポーネント化
+
+【統合仕様書】：TOPPERS 統合仕様書を参照
+【TECS仕様書】：TECS 仕様書を参照
+【ファクトリ】：静的APIの記述を生成
+
+【受け口】：受け口名（シグニチャ名）
+  eで始まる受け口はタスクコンテキスト用（例，eTask）
+  eiで始まる受け口は非タスクコンテキスト用（例，eiTask）
+  [inline]：インライン関数で実装される
+
+【呼び口】：呼び口（シグニチャ名）
+  cで始まる呼び口はタスクコンテキスト用（例，cBody）
+  ciで始まる呼び口は非タスクコンテキスト用（例，ciBody）
+  [optional]：呼び口の非結合を許す
+
+【属性】：各セルタイプの持つ属性
+	[omit]：初期化のみで使用され，実装コード上では参照されない
+
+1.1 タスクセルタイプ:tTask
+ASPカーネルのタスクを利用するためのセルタイプである．
+
+タスク例外ルーチンを利用しない場合は，
+タスク例外用の呼び口cExceptionBodyは結合しない．
+
+【受け口】
+	[inline]   eTask(sTask)          タスクコンテキスト用のタスク操作
+	[inline]   eiTask(siTask)        非タスクコンテキスト用のタスク操作
+
+【呼び口】
+	           cBody(sTaskBody)      タスク本体の受け口と結合 
+	[optional] cExceptionBody(sTaskExceptionBody) 
+                                     タスク例外処理ルーチン本体 
+                                     タスク例外を利用しない場合は非結合とする．
+【属性】
+	ID			id                   CRE_TSKとDEF_TEXのtskidパラメータとして渡される．
+                                     通常既定値を利用する．
+	[omit] ATR	task_attribute       CRE_TSKのtskatrパラメータとして渡される．
+                                     既定値では TA_NULL が渡される．
+	[omit] ATR	exception_attribute  DEF_TEXのtexatrパラメータとして渡される．
+                                     既定値では TA_NULL が渡される．
+	[omit] PRI	priority;            CRE_TSKのitskpriパラメータとして渡される．
+                                     既定値がないためセルを定義するときに必ず値を指定する．
+	[omit] SIZE	stack_size;          CRE_TSKのstkszパラメータとして渡される．
+                                     既定値がないためセルを定義するときに必ず値を指定する．
+【ファクトリ】
+CRE_TSK，DEF_TEXをgen/tecsgen.cfgに生成する．
+
+以下のAPIはセルタイプtKernelがサポートする
+  sleep(void);
+  sleepTimeout([in] TMO timeout);
+  delay([in] RELTIM delay_time);
+  rotateReadyQueue([in] PRI priority);
+  exitTask(void);
+  getTaskId([out]ID *p_task_id);
+  exitKernel(void);
+
+======================================================================
+eTask(sTask)  タスクコンテキスト用のタスク操作
+======================================================================
+activate      タスクの起動
+
+【TECSのAPI】
+	ER ercd = 呼び口名_activate()
+
+【統合仕様書】
+詳細は，4.1節のact_tskを参照のこと．
+----------------------------------------------------------------------
+cancelActivate タスク起動要求のキャンセル
+
+【TECSのAPI】
+	ER_UINT	ercd = 呼び口名_cancelActivate()
+
+【統合仕様書】
+詳細は，4.1節のcan_actを参照のこと．
+----------------------------------------------------------------------
+terminate 		タスクの強制終了
+
+【TECSのAPI】
+	ER		ercd = 呼び口名_terminate()
+
+【統合仕様書】
+詳細は，4.1節のter_tskを参照のこと．
+----------------------------------------------------------------------
+changePriority	 タスク優先度の変更
+	
+【TECSのAPI】
+	ER		ercd = 呼び口名_changePriority([in] PRI priority)
+
+【パラメータ】
+	PRI		priority	ベース優先度
+
+【統合仕様書】
+詳細は，4.1節のchg_priを参照のこと．
+----------------------------------------------------------------------
+getPriority		タスク優先度の参照
+
+【TECSのAPI】
+	ER		ercd = 呼び口名_getPriority([out] PRI *p_priority)
+
+【パラメータ】
+	PRI *	p_priority	現在優先度を入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.1節のget_priを参照のこと．
+----------------------------------------------------------------------
+refer			タスクの状態参照
+
+【TECSのAPI】
+	ER	   ercd = 呼び口名_refer([out] T_RTSK *pk_task_status)
+
+【パラメータ】
+	T_RTSK *	pk_task_status	タスクの現在状態を入れるパケットへのポインタ
+
+【統合仕様書】
+詳細は，4.1節のref_tskを参照のこと．
+----------------------------------------------------------------------
+wakeup			タスクの起床
+
+【TECSのAPI】
+	ER   ercd = 呼び口名_wakeup()
+
+【統合仕様書】
+詳細は，4.2節のwup_tskを参照のこと．
+----------------------------------------------------------------------
+cancelWakeup   タスク起床要求のキャンセル
+
+【TECSのAPI】
+	ER_UINT  ercd = 呼び口名_cancelWakeup()
+
+【統合仕様書】
+詳細は，4.2節のcan_wupを参照のこと．
+----------------------------------------------------------------------
+releaseWait		強制的な待ち解除
+
+【TECSのAPI】
+	ER		ercd = 呼び口名_releaseWait()
+
+【統合仕様書】
+詳細は，4.2節のrel_waiを参照のこと．
+----------------------------------------------------------------------
+suspend			強制待ち状態への遷移
+
+【TECSのAPI】
+	ER		ercd = 呼び口名_suspend();
+
+【統合仕様書】
+詳細は，4.2節のsus_tskを参照のこと．
+----------------------------------------------------------------------
+resume			強制待ち状態からの再開
+
+【TECSのAPI】
+	ER		ercd = 呼び口名_resume()
+
+【統合仕様書】
+詳細は，4.2節のrsm_tskを参照のこと．
+----------------------------------------------------------------------
+raiseException	タスク例外処理の要求
+
+【TECSのAPI】
+	ER		ercd = 呼び口名_raiseException([in] TEXPTN pattern)
+
+【パラメータ】
+	TEXPTN		pattern		要求するタスク例外処理のタスク例外要因
+
+【統合仕様書】
+詳細は，4.3節のras_texを参照のこと．
+
+======================================================================
+eiTask(siTask)	非タスクコンテキスト用のタスク操作
+======================================================================
+activate		タスクの起動
+
+【TECSのAPI】
+	ER		ercd = 呼び口名_activate();
+
+【統合仕様書】
+詳細は，4.1節のiact_tskを参照のこと．
+----------------------------------------------------------------------
+wakeup			タスクの起床
+
+【TECSのAPI】
+	ER		ercd = 呼び口名_wakeup()
+
+【統合仕様書】
+詳細は，4.2節のiwup_tskを参照のこと．
+----------------------------------------------------------------------
+releaseWait		強制的な待ち解除
+
+【TECSのAPI】
+	ER		ercd = 呼び口名_releaseWait()
+
+【統合仕様書】
+詳細は，4.2節のirel_waiを参照のこと．
+----------------------------------------------------------------------
+raiseException 	タスク例外処理の要求
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_raiseException([in] TEXPTN pattern)
+
+【パラメータ】
+	TEXPTN		pattern		要求するタスク例外処理のタスク例外要因
+
+【統合仕様書】
+詳細は，4.3節のiras_texを参照のこと．
+----------------------------------------------------------------------
+
+1.2 初期化処理ルーチンセルタイプ:tInitializeRoutine
+
+システム構成管理機能の初期化処理ルーチンを追加するためのセルタイプである．
+初期化の内容は呼び口の結合先によって変更できる．
+
+【受け口】
+	初期化処理ルーチンセルタイプは，受け口を持たない．
+
+【呼び口】
+	cInitializeRoutine(sInitializeRoutineBody) 初期化処理ルーチンの処理本体を呼び出す
+【属性】
+	[omit] ATR	attribute       ATT_INIのiniatrパラメータとして渡される．
+                                通常既定値を利用する．
+【ファクトリ】
+ATT_INIをgen/tecsgen.cfgに生成する．
+
+【統合仕様書】
+詳細は，4.12節のシステム構成管理機能を参照のこと．
+----------------------------------------------------------------------
+
+1.3 終了処理ルーチンセルタイプ:tTerminateRoutine
+
+システム構成管理機能の終了処理ルーチンを追加するためのセルタイプである．
+初期化の内容は呼び口の結合先によって変更できる．
+
+【受け口】
+	終了処理ルーチンセルタイプは，受け口を持たない．
+
+【呼び口】
+	cTerminateRoutine(sTerminateRoutineBody)  終了処理ルーチンの処理本体を呼び出す
+
+【属性】
+	[omit] ATR	attribute       ATT_TERのteratrパラメータとして渡される．
+                                通常既定値を利用する.
+
+【ファクトリ】
+ATT_TERをgen/tecsgen.cfgに生成する．
+
+【統合仕様書】
+詳細は，4.12節のシステム構成管理機能を参照のこと．
+----------------------------------------------------------------------
+1.4 割込みサービスルーチンセルタイプ:tISR
+
+ASPの割込みサービスルーチンを利用するためのセルタイプである．
+割込みサービスルーチンと割込み要求ラインが1対1に対応する場合は，
+1.6節のtISRWithConfigInterruptを利用する．
+
+【受け口】
+	割込みサービスルーチンセルタイプは，受け口を持たない．
+
+【呼び口】
+	ciBody(siHandlerBody)          割込みサービスルーチンの処理本体を呼び出す
+
+【属性】
+	[omit] ATR	attribute          ATT_ISRのisratrパラメータとして渡される．
+                                   通常既定値を利用する．
+	[omit] INTNO  interrupt_number ATT_ISRのintnoパラメータとして渡される．
+                                   既定値がないためセルを定義するときに必ず値を指定する．
+	[omit] PRI	priority           ATT_ISRのisrpriパラメータとして渡される．
+                                   既定値では 1 が渡される．
+
+【ファクトリ】
+ATT_ISRをgen/tecsgen.cfgに生成する．
+
+【統合仕様書】
+詳細は，4.9節の割込み管理機能を参照のこと．
+----------------------------------------------------------------------
+
+1.4 割込み要求ラインセルタイプ:tConfigInterrupt
+
+ASPの割込み要求ラインを利用するためのセルタイプである．
+割込みサービスルーチンと割込み要求ラインが1対1に対応する場合は，
+1.6節のtISRWithConfigInterruptを利用する．
+
+【受け口】
+	[inline]  eConfigInterrupt(sConfigInterrupt)  割込みの禁止・許可を行う
+
+【呼び口】
+   	ciBody(siHandlerBody)           割込みサービスルーチンの処理本体を呼び出す	
+
+【属性】
+	[omit] ATR	isr_attribute       ATT_ISRのisratrパラメータとして渡される．
+                                    通常既定値を利用する．
+	[omit] PRI	isr_priority        ATT_ISRのisrpriパラメータとして渡される．
+                                    既定値では 1 が渡される．
+	INTNO interrupt_number          ATT_ISR，CFG_INTのintnoパラメータとして渡される．
+                                    既定値がないためセルを定義するときに必ず値を指定する．
+	[omit] ATR   attribute          CFG_INTのintatrパラメータとして渡される．
+                                    通常既定値を利用する．
+	[omit] PRI   interrupt_priority CFG_INTのintpriパラメータとして渡される．
+                                    既定値がないためセルを定義するときに必ず値を指定する．
+
+【ファクトリ】
+CFG_INTをgen/tecsgen.cfgに生成する．
+
+【統合仕様書】
+詳細は，4.9節の割込み管理機能を参照のこと．
+
+======================================================================
+eConfigInterrupt(sConfigInterrupt)  割込みの禁止・許可を行う
+======================================================================
+disable     割込みの禁止
+
+【TECSのAPI】
+	ER ercd = 呼び口名_disable()
+
+【統合仕様書】
+詳細は，4.9節のdis_intを参照のこと．
+----------------------------------------------------------------------
+enable      割込みの許可
+
+【TECSのAPI】
+	ER ercd = 呼び口名_enable()
+
+【統合仕様書】
+詳細は，4.9節のena_intを参照のこと．
+----------------------------------------------------------------------
+1.6 割込みサービスルーチンと割込み要求ラインの複合セルタイプ:tISRWithConfigInterrupt
+
+割込みサービスルーチンと割込み要求ラインが1対1に対応する場合に利用する．
+
+【受け口】
+	[inline]  eConfigInterrupt(sConfigInterrupt)  割込みの禁止・許可を行う
+
+【呼び口】
+	ciBody(siHandlerBody)        割込みサービスルーチンの処理本体を呼び出す
+
+【属性】
+	INTNO interrupt_number           CFG_INTのintnoパラメータとして渡される．
+                                     既定値がないためセルを定義するときに必ず値を指定する．
+	[omit] ATR   interrupt_attribute CFG_INTのintatrパラメータとして渡される．
+                                     通常既定値を利用する．
+	[omit] PRI   interrupt_priority  CFG_INTのintpriパラメータとして渡される．
+                                     既定値がないためセルを定義するときに必ず値を指定する．
+
+【ファクトリ】
+ATT_ISR，CFG_INTをgen/tecsgen.cfgに生成する．
+
+【統合仕様書】
+詳細は，4.9節の割込み管理機能能を参照のこと．
+----------------------------------------------------------------------
+1.7 周期ハンドラセルタイプ:tCyclicHandler
+ASPカーネルの周期ハンドラを利用するためのセルタイプである．
+
+【受け口】
+	eCyclic(sCyclic) 周期ハンドラの操作
+
+【呼び口】
+	ciBody(siHandlerBody) 周期ハンドラの処理本体を呼び出す
+
+【属性】
+	ID     id                  CRE_CYCのcycidパラメータとして渡される．
+                               通常既定値を利用する．
+	[omit] ATR    attribute    CRE_CYCのcycatrパラメータとして渡される．
+                               既定値では TA_NULL が渡される．
+	[omit] RELTIM cyclic_time  CRE_CYCのcyctimパラメータとして渡される．
+                               既定値がないためセルを定義するときに必ず値を指定する．
+	[omit] RELTIM cyclic_phase CRE_CYCのcycphsパラメータとして渡される．
+                               既定値では 0 が渡される．
+【ファクトリ】
+CRE_CYCをgen/tecsgen.cfgに生成する．
+
+【統合仕様書】
+詳細は，4.6.2節の周期ハンドラを参照のこと．
+
+======================================================================
+eCyclic(sCyclic) 周期ハンドラの操作
+======================================================================
+start		周期ハンドラの動作開始
+
+【TECSのAPI】
+	ER ercd = 呼び口名_start()
+
+【統合仕様書】
+詳細は，4.2.6節のsta_cycを参照のこと．
+----------------------------------------------------------------------
+stop		周期ハンドラの動作停止
+
+【TECSのAPI】
+	ER ercd = 呼び口名_stop()
+
+【統合仕様書】
+詳細は，4.2.6節のstp_cycを参照のこと．
+----------------------------------------------------------------------
+refer		周期ハンドラの状態参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_refer([out]T_RCYC *pk_cyclic_handler_status)
+
+【パラメータ】
+	T_RCYC *	pk_cyclic_handler_status 周期ハンドラの現在状態を入れるパケットへのポインタ
+							
+【統合仕様書】
+詳細は，4.2.6節のref_cycを参照のこと．
+----------------------------------------------------------------------
+
+1.8 アラームハンドラセルタイプ:tAlarmHandler
+
+ASPカーネルのアラームハンドラを利用するためのセルタイプである．
+
+【受け口】
+	[inline]  eAlarm(sAlarm)   タスクコンテキスト用のアラームハンドラ操作
+	[inline]  eiAlarm(siAlarm) 非タスクコンテキスト用アラームハンドラ操作
+
+【呼び口】
+	ciBody(siHandlerBody)      アラームハンドラの処理本体を呼び出す
+
+【属性】
+	ID     id                  CRE_ALMのalmidパラメータとして渡される．
+                               通常既定値を利用する．
+	[omit] ATR attribute       CRE_ALMのalmatrパラメータとして渡される．
+                               通常既定値を利用する.
+
+【ファクトリ】
+ CRE_ALMをgen/tecsgen.cfgに生成する．
+======================================================================
+eAlarm(sAlarm)   タスクコンテキスト用のアラームハンドラ操作
+======================================================================
+start		アラームハンドラの動作開始
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_start([in] RELTIM alarm_time)
+
+【パラメータ】
+	RELTIM		alarm_time		アラームハンドラの起動時刻（相対時間）
+
+【統合仕様書】
+詳細は，4.6.3節のsta_almを参照のこと．
+----------------------------------------------------------------------
+stop		アラームハンドラの動作停止
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_stop()
+
+【統合仕様書】
+詳細は，4.6.3節のstp_almを参照のこと．
+----------------------------------------------------------------------
+refer		アラームハンドラの状態参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_refer([out]T_RALM *pk_alarm_status)
+
+【パラメータ】
+	T_RALM *	pk_alarm_status アラームハンドラの現在状態を入れるパケットへのポインタ
+
+【統合仕様書】
+詳細は，4.6.3節のref_almを参照のこと．
+
+======================================================================
+eiAlarm(siAlarm) 非タスクコンテキスト用アラームハンドラ操作
+======================================================================
+start	アラームハンドラの動作開始
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_start([in] RELTIM alarm_time)
+
+【パラメータ】
+	RELTIM		alarm_time		アラームハンドラの起動時刻（相対時間）
+
+【統合仕様書】
+詳細は，4.6.3節のista_almを参照のこと．
+----------------------------------------------------------------------
+stop	アラームハンドラの動作停止
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_stop()
+
+【統合仕様書】
+詳細は，4.6.3節のistp_almを参照のこと．
+----------------------------------------------------------------------
+
+2.1 セマフォセルタイプ:tSemaphore
+ASPカーネルのセマフォを利用するためのセルタイプである．
+
+【受け口】
+	[inline] eSemaphore(sSemaphore)  タスクコンテキスト用セマフォ操作
+	[inline] eiSemaphore(siSemaphore) 非タスクコンテキスト用セマフォ操作
+
+【呼び口】
+	セマフォセルタイプは，呼び口を持たない．
+【属性】
+	ID      id				   CRE_SEMのsemidパラメータとして渡される．
+                               通常既定値を利用する．
+	[omit]  ATR attribute      CRE_SEMのsematrパラメータとして渡される．
+                               既定値では TA_NULL が渡される．
+	[omit]  uint32_t count     CRE_SEMのsematrパラメータとして渡される．
+                               既定値がないためセルを定義するときに必ず値を指定する．
+	[omit]  uint32_t max       CRE_SEMsematrパラメータとして渡される．
+                               既定値では 1 が渡される．
+
+【ファクトリ】
+CRE_SEMをgen/tecsgen.cfgに生成する．
+
+
+======================================================================
+eSemaphore(sSemaphore)  タスクコンテキスト用セマフォ操作
+======================================================================
+signal		セマフォの資源の返却
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_signal();
+
+【統合仕様書】
+詳細は，4.4.1節のsig_semを参照のこと．
+----------------------------------------------------------------------
+wait		セマフォの資源の獲得
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_wait();
+
+【統合仕様書】
+詳細は，4.4.1節のwai_semを参照のこと．
+----------------------------------------------------------------------
+waitPolling		セマフォの資源の獲得（ポーリング）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_waitPolling();
+
+【統合仕様書】
+詳細は，4.4.1節のpol_semを参照のこと．
+----------------------------------------------------------------------
+waitTimeout	セマフォの資源の獲得（タイムアウト付き）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_waitTimeout([in] TMO timeout)
+
+【パラメータ】
+	TMO			timeout		タイムアウト時間
+
+【統合仕様書】
+詳細は，4.4.1節のtwai_semを参照のこと．
+----------------------------------------------------------------------
+initialize		セマフォの再初期化
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_initialize()
+
+【統合仕様書】
+詳細は，4.4.1節のini_semを参照のこと．
+----------------------------------------------------------------------
+refer		セマフォの状態参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_refer([out] T_RSEM *pk_semaphore_status)
+
+【パラメータ】
+	T_RSEM *	pk_semaphore_status セマフォの現在状態を入れるパケットへのポインタ
+【統合仕様書】
+詳細は，4.4.1節のref_semを参照のこと．
+======================================================================
+eiSemaphore(siSemaphore) 非タスクコンテキスト用セマフォ操作
+======================================================================
+signal		セマフォの資源の返却
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_signal();
+
+【統合仕様書】
+詳細は，4.4.1節のisig_semを参照のこと．
+----------------------------------------------------------------------
+
+2.2 イベントフラグセルタイプ:tEventflag
+ASPカーネルのイベントフラグを利用するためのセルタイプである．
+
+【受け口】
+	[inline] eEventflag(sEventflag)   タスクコンテキスト用イベントフラグ操作
+	[inline] eiEventflag(siEventflag) 非タスクコンテキスト用イベントフラグ操作
+
+【呼び口】
+	イベントフラグセルタイプは，呼び口を持たない．
+
+【属性】
+	ID      id   			    CRE_FLGのflgidパラメータとして渡される．
+                                通常既定値を利用する．
+	[omit]  ATR attribute       CRE_FLGのflgatrパラメータとして渡される．
+                                既定値では TA_NULL が渡される．
+	[omit]  FLGPTN flag_pattern CRE_FLGのiflgptnパラメータとして渡される．
+                                既定値がないためセルを定義するときに必ず値を指定する．
+
+【ファクトリ】
+CRE_FLGをgen/tecsgen.cfgに生成する．
+======================================================================
+eEventflag(sEventflag)   タスクコンテキスト用イベントフラグ操作
+======================================================================
+set		イベントフラグのセット
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_set([in] FLGPTN set_pattern)
+
+【パラメータ】
+	FLGPTN		set_pattern		セットするビットパターン
+
+【統合仕様書】
+詳細は，4.4.2節のset_flを参照のこと．
+----------------------------------------------------------------------
+clear		イベントフラグのクリア
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_clear([in] FLGPTN clear_pattern)
+
+【パラメータ】
+	FLGPTN		clear_pattern	クリアするビットパターン（クリアしないビットを1，クリアするビットを0とする）
+
+【統合仕様書】
+詳細は，4.4.2節のclr_flgを参照のこと．
+----------------------------------------------------------------------
+wait		イベントフラグ待ち
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_wait([in] FLGPTN wait_pattern, [in] MODE wait_flag_mode, [out] FLGPTN *p_flag_pattern)
+
+【パラメータ】
+	FLGPTN		wait_pattern		待ちビットパターン
+	MODE		wait_flag_mode		待ちモード
+	FLGPTN *	p_flag_pattern 		待ち解除時のビットパターンを入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.4.2節のwai_flgを参照のこと．
+----------------------------------------------------------------------
+waitPolling		イベントフラグ待ち（ポーリング）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_waitPolling([in] FLGPTN wait_pattern, [in] MODE wait_flag_mode, [out] FLGPTN *p_flag_pattern)
+
+【パラメータ】
+	FLGPTN		wait_pattern		待ちビットパターン
+	MODE		wait_flag_mode		待ちモード
+	FLGPTN *	p_flag_pattern 		待ち解除時のビットパターンを入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.4.2節のpol_flgを参照のこと．
+----------------------------------------------------------------------
+waitTimeout  	イベントフラグ待ち（タイムアウト付き）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_waitTimeout([in] FLGPTN wait_pattern, [in] MODE wait_flag_mode, [out] FLGPTN *p_flag_pattern, [in] TMO timeout)
+
+【パラメータ】
+	FLGPTN		wait_pattern		待ちビットパターン
+	MODE		wait_flag_mode		待ちモード
+	FLGPTN *	p_flag_pattern 		待ち解除時のビットパターンを入れるメモリ領域へのポインタ
+	TMO			timeout				タイムアウト時間
+
+【統合仕様書】
+詳細は，4.4.2節のtwai_flgを参照のこと．
+----------------------------------------------------------------------
+initialize	イベントフラグの再初期化
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_initialize()
+
+【統合仕様書】
+詳細は，4.4.2節のini_flgを参照のこと．
+----------------------------------------------------------------------
+refer		イベントフラグの状態参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_refer([out]T_RFLG *pk_eventflag_status)
+
+【パラメータ】
+	T_RFLG *	pk_eventflag_status	イベントフラグの現在状態を入れるパケットへのポインタ
+
+【統合仕様書】
+詳細は，4.4.2節のref_flgを参照のこと．
+======================================================================
+eiEventflag(siEventflag) 非タスクコンテキスト用イベントフラグ操作
+======================================================================
+set		イベントフラグのセット
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_set([in] FLGPTN set_pattern)
+
+【パラメータ】
+	FLGPTN		set_pattern		セットするビットパターン
+
+【統合仕様書】
+詳細は，4.4.2節のiset_flgを参照のこと．
+----------------------------------------------------------------------
+
+2.3 データキューセルタイプ:tDataqueue
+ASPカーネルのデータキューを利用するためのセルタイプである．
+
+【受け口】
+	[inline] eDataqueue(sDataqueue)   タスクコンテキスト用のデータキュー操作
+	[inline] eiDataqueue(siDataqueue) 非タスクコンテキスト用のデータキュー操作
+
+【呼び口】
+	データキューセルタイプは，呼び口を持たない．
+
+【属性】
+	ID      id                 CRE_DTQのdtqidパラメータとして渡される．
+                               通常既定値を利用する．
+	[omit] ATR     attribute   CRE_DTQのdtqatrパラメータとして渡される．
+                               既定値では TA_NULL が渡される．
+	[omit] uint_t  count       CRE_DTQのdtqcntパラメータとして渡される．
+                               既定値では 1 が渡される．
+	[omit] void*   pdqmb       CRE_DTQのdtqmbパラメータとして渡される．
+                               通常既定値を利用する．
+
+【ファクトリ】
+CRE_DTQをgen/tecsgen.cfgに生成する．
+
+======================================================================
+eDataqueue(sDataqueue)   タスクコンテキスト用のデータキュー操作
+======================================================================
+send			データキューへの送信
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_send([in] intptr_t data);
+
+【パラメータ】
+	intptr_t	data		送信データ
+
+【統合仕様書】
+詳細は，4.4.3節のsnd_dtqを参照のこと．
+----------------------------------------------------------------------
+sendPolling		データキューへの送信（ポーリング）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_sendPolling([in] intptr_t data)
+
+【パラメータ】
+	intptr_t	data		送信データ
+
+【統合仕様書】
+詳細は，4.4.3節のpsnd_dtqを参照のこと．
+----------------------------------------------------------------------
+sendTimeout		データキューへの送信（タイムアウト付き）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_sendTimeout([in] intptr_t data, [in]TMO timeout)
+
+【パラメータ】
+	intptr_t	data		送信データ
+	TMO			timeout		タイムアウト時間
+
+【統合仕様書】
+詳細は，4.4.3節のtsnd_dtqを参照のこと．
+----------------------------------------------------------------------
+sendForce		データキューへの強制送信
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_sendForce([in] intptr_t data)
+
+【パラメータ】
+	intptr_t	data		送信データ
+
+【統合仕様書】
+詳細は，4.4.3節のfsnd_dtqを参照のこと．
+----------------------------------------------------------------------
+receive			データキューからの受信
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_receive([out] intptr_t *p_data)
+
+【パラメータ】
+	intptr_t *	p_data		受信データを入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.4.3節のrcv_dtqを参照のこと．
+----------------------------------------------------------------------
+receivePolling	データキューからの受信（ポーリング）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_receivePolling([out] intptr_t *p_data)
+
+【パラメータ】
+	intptr_t *	p_data		受信データを入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.4.3節のprcv_dtqを参照のこと．
+----------------------------------------------------------------------
+receiveTimeout	データキューからの受信（タイムアウト付き）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_receiveTimeout([out] intptr_t *p_data, [in]TMO timeout)
+
+【パラメータ】
+	intptr_t *	p_data		受信データを入れるメモリ領域へのポインタ
+	TMO			timeout		タイムアウト時間
+
+【統合仕様書】
+詳細は，4.4.3節のtrcv_dtqを参照のこと．
+----------------------------------------------------------------------
+initialize		データキューの再初期化
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_initialize()
+
+【統合仕様書】
+詳細は，4.4.3節のtimeoutを参照のこと．
+----------------------------------------------------------------------
+refer			データキューの状態参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_refer([out] T_RDTQ *pk_dataqueue_status)
+
+【パラメータ】
+	T_RDTQ *	pk_dataqueue_status データキューの現在状態を入れるパケットへのポインタ
+
+【統合仕様書】
+詳細は，4.4.3節のref_dtqを参照のこと．
+======================================================================
+eiDataqueue(siDataqueue) 非タスクコンテキスト用のデータキュー操作
+======================================================================
+sendPolling		データキューへの送信（ポーリング）〔I〕
+【TECSのAPI】
+	ER		ercd =  呼び口名_sendPolling([in] intptr_t data) 
+
+【パラメータ】
+	intptr_t	data		送信データ
+
+【統合仕様書】
+詳細は，4.4.3節のipsnd_dtqを参照のこと．
+----------------------------------------------------------------------
+sendForce		データキューへの強制送信〔I〕
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_sendForce([in] intptr_t data)
+
+【パラメータ】
+	intptr_t	data		送信データ
+
+【統合仕様書】
+詳細は，4.4.3節のifsnd_dtqを参照のこと．
+----------------------------------------------------------------------
+
+2.4 優先度データキュー:tPriorityDataqueue
+ASPカーネルの優先度データキューを利用するためのセルタイプである．
+
+【受け口】
+	[inline] ePriorityDataqueue(sPriorityDataqueue)   タスクコンテキスト用の優先度データキュー操作
+	[inline] eiPriorityDataqueue(siPriorityDataqueue) 非タスクコンテキスト用の優先度データキュー操作
+
+【呼び口】
+	優先度データキューは，呼び口を持たない．
+
+【属性】
+	ID      id                        CRE_PDQのpdqidパラメータとして渡される．
+                                      通常既定値を利用する．
+	[omit] ATR     attribute          CRE_PDQのpdqatrパラメータとして渡される．
+                                      既定値では TA_NULL が渡される．
+	[omit] uint_t  count              CRE_PDQのpdqcntパラメータとして渡される．
+                                      既定値では 1 が渡される．
+	[omit] PRI     max_data_priority  CRE_PDQのmaxdpriパラメータとして渡される．
+                                      既定値がないためセルを定義するときに必ず値を指定する．
+	[omit] void *  pdqmb             CRE_PDQのpdqmbパラメータとして渡される．
+                                      通常既定値を利用する．
+
+【ファクトリ】
+CRE_PDQをgen/tecsgen.cfgに生成する．
+=====================================================================================
+ePriorityDataqueue(sPriorityDataqueue)   タスクコンテキスト用の優先度データキュー操作
+=====================================================================================
+send		優先度データキューへの送信
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_send([in] intptr_t data, [in]PRI data_priority)
+
+【パラメータ】
+	intptr_t	data			送信データ
+	PRI			data_priority	送信データの優先度
+
+【統合仕様書】
+詳細は，4.4.4節のsnd_pdqを参照のこと．
+----------------------------------------------------------------------
+sendPolling	優先度データキューへの送信（ポーリング）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_sendPolling([in] intptr_t data, [in]PRI data_priority)
+
+【パラメータ】
+	intptr_t	data			送信データ
+	PRI			data_priority	送信データの優先度
+
+【統合仕様書】
+詳細は，4.4.4節のpsnd_pdqを参照のこと．
+----------------------------------------------------------------------
+sendTimeout 優先度データキューへの送信（タイムアウト付き）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_sendTimeout([in] intptr_t data, [in]PRI data_priority, [in]TMO timeout)
+
+【パラメータ】
+	intptr_t	data			送信データ
+	PRI			data_priority	送信データの優先度
+	TMO			timeout			タイムアウト時間
+
+【統合仕様書】
+詳細は，4.4.4節のtsnd_pdqを参照のこと．
+----------------------------------------------------------------------
+receive			優先度データキューからの受信
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_receive([out] intptr_t *p_data, [out]PRI *p_data_priority)
+
+【パラメータ】
+	intptr_t *	p_data			受信データを入れるメモリ領域へのポインタ
+	PRI *		p_data_priority	受信データの優先度を入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.4.4節のrcv_pdqを参照のこと．
+----------------------------------------------------------------------
+receivePolling	優先度データキューからの受信（ポーリング）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_receivePolling([out] intptr_t *p_data, [out]PRI *p_data_priority);
+
+【パラメータ】
+	intptr_t *	p_data			受信データを入れるメモリ領域へのポインタ
+	PRI *		p_data_priority	受信データの優先度を入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.4.4節のprcv_pdqを参照のこと．
+----------------------------------------------------------------------
+receiveTimeout	優先度データキューからの受信（タイムアウト付き）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_receiveTimeout([out] intptr_t *p_data, [out]PRI *p_data_priority,[in]TMO timeout)
+
+【パラメータ】
+	intptr_t *	p_data			受信データを入れるメモリ領域へのポインタ
+	PRI *		p_data_priority	受信データの優先度を入れるメモリ領域へのポインタ
+	TMO			timeout			タイムアウト時間
+【統合仕様書】
+詳細は，4.4.4節のtrcv_pdqを参照のこと．
+----------------------------------------------------------------------
+initialize		優先度データキューの再初期化
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_initialize()
+
+【統合仕様書】
+詳細は，4.4.4節のini_pdqを参照のこと．
+----------------------------------------------------------------------
+refer			優先度データキューの状態参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_refer([out] T_RPDQ *pk_priority_dataqueue_status)
+
+【パラメータ】
+	T_RPDQ *	pk_priority_dataqueue_status	優先度データキューの現在状態を入れるパケットへのポインタ
+【統合仕様書】
+詳細は，4.4.4節のref_pdqを参照のこと．
+=======================================================================================
+eiPriorityDataqueue(siPriorityDataqueue) 非タスクコンテキスト用の優先度データキュー操作
+=======================================================================================
+sendPolling	優先度データキューへの送信（ポーリング）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_sendPolling([in]intptr_t data, [in]PRI data_priority)
+
+【パラメータ】
+	intptr_t	data			送信データ
+	PRI			data_priority	送信データの優先度
+
+【統合仕様書】
+詳細は，4.4.4節のipsnd_pdqを参照のこと．
+----------------------------------------------------------------------
+
+2.5 固定長メモリプールセルタイプ:tFixedSizeMemoryPool
+ASPカーネルの固定長メモリプールを利用するためのセルタイプである．
+
+【受け口】
+	[inline] eFixedSizeMemoryPool(sFixedSizeMemoryPool)タスクコンテキスト用の固定長メモリプール操作
+【呼び口】
+	固定長メモリプールセルタイプは，呼び口を持たない．
+
+【属性】
+	ID id                         CRE_MPFのmpfidパラメータとして渡される．
+                                  通常既定値を利用する．
+	[omit] ATR attribute          CRE_MPFのmpfatrパラメータとして渡される．
+                                  既定値では TA_NULL が渡される．
+	[omit] uint32_t block_count   CRE_MPFのblkcntパラメータとして渡される．
+                                  既定値がないためセルを定義するときに必ず値を指定する．
+	[omit] uint32_t block_size    CRE_MPFのblkszパラメータとして渡される．
+                                  既定値がないためセルを定義するときに必ず値を指定する．
+	[omit] MPF_T *mpf             CRE_MPFのmpfパラメータとして渡される．
+                                  通常既定値を利用する．
+	[omit] void *mpfmb            CRE_MPFのmpfmbパラメータとして渡される．
+                                  通常既定値を利用する．
+
+【ファクトリ】
+CRE_MPFをgen/tecsgen.cfgに生成する．
+======================================================================================
+eFixedSizeMemoryPool(sFixedSizeMemoryPool)タスクコンテキスト用の固定長メモリプール操作
+======================================================================================
+get			固定長メモリブロックの獲得
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_get([out] void **p_block)
+
+【パラメータ】
+	ID			mpfid		対象固定長メモリプールのID番号
+	void **		p_block		獲得した固定長メモリブロックの先頭番地を入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.5.1節のget_mpfを参照のこと．
+----------------------------------------------------------------------
+getPolling	固定長メモリブロックの獲得（ポーリング）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_getPolling([out] void **p_block)
+
+【パラメータ】
+	ID			mpfid		対象固定長メモリプールのID番号
+	void **		p_block		獲得した固定長メモリブロックの先頭番地を入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.5.1節のpget_mpfを参照のこと．
+----------------------------------------------------------------------
+getTimeout	固定長メモリブロックの獲得（タイムアウト付き）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_getTimeout([out] void **p_block, [in] TMO timeout)
+
+【パラメータ】
+	ID			mpfid		対象固定長メモリプールのID番号
+	void **		p_block		獲得した固定長メモリブロックの先頭番地を入れるメモリ領域へのポインタ
+	TMO			timeout		タイムアウト時間
+
+【統合仕様書】
+詳細は，4.5.1節のtget_mpfを参照のこと．
+----------------------------------------------------------------------
+release		固定長メモリブロックの返却
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_release([in] const void *block)
+
+【パラメータ】
+	ID			mpfid		対象固定長メモリプールのID番号
+	void *		block		返却する固定長メモリブロックの先頭番地
+
+【統合仕様書】
+詳細は，4.5.1節のrel_mpfを参照のこと．
+----------------------------------------------------------------------
+initialize 	固定長メモリプールの再初期化
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_initialize()
+
+【統合仕様書】
+詳細は，4.5.1節のini_mpfを参照のこと．
+----------------------------------------------------------------------
+refer		固定長メモリプールの状態参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_refer([out]T_RMPF *pk_memory_pool_fixed_size_status)
+
+【パラメータ】
+	T_RMPF *	pk_memory_pool_fixed_size_status	固定長メモリプールの現在状態を入れるパケットへのポインタ
+
+【統合仕様書】
+詳細は，4.5.1節のref_mpfを参照のこと．
+----------------------------------------------------------------------
+
+3 カーネルセルタイプ:tKernel
+自タスク操作やシステム管理機能を提供するセルタイプである。
+
+【受け口】
+	[inline] eKernel(sKernel)    
+	[inline] eiKernel(siKernel)
+
+【呼び口】
+	カーネルセルタイプは，呼び口を持たない．
+【属性】
+	カーネルセルタイプは，属性を持たない．
+【ファクトリ】
+	カーネルセルタイプは，ファクトリを利用しない．
+
+======================================================================
+eKernel(sKernel)    タスクコンテキスト用
+======================================================================
+sleep			起床待ち
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_sleep
+
+【統合仕様書】
+詳細は，4.2節のslp_tskを参照のこと．
+----------------------------------------------------------------------
+sleepTimeout	起床待ち（タイムアウト付き）
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_sleepTimeout([in] TMO timeout)
+
+【パラメータ】
+	TMO			timeout		タイムアウト時間
+
+【統合仕様書】
+詳細は，4.2節のtslp_tskを参照のこと．
+----------------------------------------------------------------------
+delay			自タスクの遅延
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_delay([in] RELTIM delay_time)
+
+【パラメータ】
+	RELTIM		delay_time	遅延時間
+
+【統合仕様書】
+詳細は，4.2節のdly_tskを参照のこと．
+----------------------------------------------------------------------
+exitTask		自タスクの終了
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_exitTask();
+
+【統合仕様書】
+詳細は，4.1節のext_tskを参照のこと．
+----------------------------------------------------------------------
+getTaskId		実行状態のタスクIDの参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_getTaskId([out]ID *p_task_id)
+
+【パラメータ】
+	ID *		p_task_id	タスクIDを入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.7節のget_tidを参照のこと．
+----------------------------------------------------------------------
+rotateReadyQueue	タスクの優先順位の回転
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_rotateReadyQueue([in] PRI task_priority)
+
+【パラメータ】
+	PRI			task_priority	回転対象の優先度（対象優先度）
+
+【統合仕様書】
+詳細は，4.7節のrot_rdqを参照のこと．
+----------------------------------------------------------------------
+getTime				システム時刻の参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_getTime([out]SYSTIM *p_system_time)
+
+【統合仕様書】
+詳細は，4.6.1節のget_timを参照のこと．
+----------------------------------------------------------------------
+getMicroTime		性能評価用システム時刻の参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_getMicroTime([out]SYSUTM *p_system_micro_time)
+
+【統合仕様書】
+詳細は，4.6.1節のget_utmを参照のこと．
+----------------------------------------------------------------------
+lockCpu				CPUロック状態への遷移
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_lockCpu(void)
+
+【統合仕様書】
+詳細は，4.7節のloc_cpuを参照のこと．
+----------------------------------------------------------------------
+unlockCpu			CPUロック状態の解除
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_unlockCpu(void)
+
+【統合仕様書】
+詳細は，4.7節のunl_cpuを参照のこと．
+----------------------------------------------------------------------
+disableDispatch		ディスパッチの禁止
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_disableDispatch()
+
+【統合仕様書】
+詳細は，4.7節のdis_dspを参照のこと．
+----------------------------------------------------------------------
+enableDispatch		 ディスパッチの許可
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_enableDispatch()
+
+【統合仕様書】
+詳細は，4.7節のena_dspを参照のこと．
+----------------------------------------------------------------------
+disableTaskException タスク例外処理の禁止
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_disableTaskException()
+
+【統合仕様書】
+詳細は，4.3節のdis_texを参照のこと．
+----------------------------------------------------------------------
+enableTaskException タスク例外処理の許可
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_enableTaskException();
+
+【統合仕様書】
+詳細は，4.3節のena_texを参照のこと．
+----------------------------------------------------------------------
+changeInterruptPriorityMask 割込み優先度マスクの変更
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_changeInterruptPriorityMask([in] PRI interrupt_priority)
+
+【パラメータ】
+	PRI			interrupt_priority		割込み優先度マスク
+
+【統合仕様書】
+詳細は，4.9節のchg_ipmを参照のこと．
+----------------------------------------------------------------------
+getInterruptPriorityMask 	割込み優先度マスクの参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_getInterruptPriorityMask([out] PRI *p_interrupt_priority)
+
+【パラメータ】
+	PRI *		p_interrupt_priority	割込み優先度マスクを入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.9節のget_ipmを参照のこと．
+----------------------------------------------------------------------
+exitKernel		カーネルの終了
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_exitKernel()
+
+【統合仕様書】
+詳細は，4.7節のext_kerを参照のこと．
+----------------------------------------------------------------------
+senseContext	コンテキストの参照
+
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseContext()
+
+【統合仕様書】
+詳細は，4.7節のsns_ctxを参照のこと．
+----------------------------------------------------------------------
+senseLock		CPUロック状態の参照
+
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseLock()
+
+【統合仕様書】
+詳細は，4.7節のsns_locを参照のこと．
+----------------------------------------------------------------------
+senseDispatch 	ディスパッチ禁止状態の参照
+
+【TECSのAPI】
+	bool_t		ercd =  呼び口名_senseDispatch()
+
+【統合仕様書】
+詳細は，4.7節のsns_dspを参照のこと．
+----------------------------------------------------------------------
+senseDispatchPendingState
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseDispatchPendingState()
+
+【統合仕様書】
+詳細は，4.7節のsns_dpnを参照のこと．
+----------------------------------------------------------------------
+senseKernel 	ディスパッチ保留状態の参照〔TI〕
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseKernel()
+
+【統合仕様書】
+詳細は，4.7節のsns_dpnを参照のこと．
+======================================================================
+eiKernel(siKernel)    非タスクコンテキスト用
+======================================================================
+getTaskId		実行状態のタスクIDの参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_getTaskId([out]ID *p_task_id)
+
+【パラメータ】
+	ID *	p_task_id	タスクIDを入れるメモリ領域へのポインタ
+
+【統合仕様書】
+詳細は，4.7節のiget_tidを参照のこと．
+----------------------------------------------------------------------
+rotateReadyQueue	タスクの優先順位の回転
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_rotateReadyQueue([in] PRI task_priority)
+
+【パラメータ】
+	PRI			task_priority	回転対象の優先度（対象優先度）
+
+【統合仕様書】
+詳細は，4.7節のirot_rdqを参照のこと．
+----------------------------------------------------------------------
+getMicroTime		性能評価用システム時刻の参照
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_getMicroTime([out]SYSUTM *p_system_micro_time)
+
+【統合仕様書】
+詳細は，4.6.1節のget_utmを参照のこと．
+----------------------------------------------------------------------
+lockCpu				CPUロック状態への遷移
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_lockCpu(void)
+
+【統合仕様書】
+詳細は，4.7節のiloc_cpuを参照のこと．
+----------------------------------------------------------------------
+unlockCpu			CPUロック状態の解除
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_unlockCpu(void)
+
+【統合仕様書】
+詳細は，4.7節のiunl_cpuを参照のこと．
+----------------------------------------------------------------------
+exitKernel		カーネルの終了
+
+【TECSのAPI】
+	ER		ercd =  呼び口名_exitKernel()
+
+【統合仕様書】
+詳細は，4.7節のext_kerを参照のこと．
+----------------------------------------------------------------------
+senseContext	コンテキストの参照
+
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseContext()
+
+【統合仕様書】
+詳細は，4.7節のsns_ctxを参照のこと．
+----------------------------------------------------------------------
+senseLock		CPUロック状態の参照
+
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseLock()
+
+【統合仕様書】
+詳細は，4.7節のsns_locを参照のこと．
+----------------------------------------------------------------------
+senseDispatch 	ディスパッチ禁止状態の参照
+
+【TECSのAPI】
+	bool_t		ercd =  呼び口名_senseDispatch()
+
+【統合仕様書】
+詳細は，4.7節のsns_dspを参照のこと．
+----------------------------------------------------------------------
+senseDispatchPendingState
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseDispatchPendingState()
+
+【統合仕様書】
+詳細は，4.7節のsns_dpnを参照のこと．
+----------------------------------------------------------------------
+senseKernel 	ディスパッチ保留状態の参照〔TI〕
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseKernel()
+
+【統合仕様書】
+詳細は，4.7節のsns_dpnを参照のこと．
+----------------------------------------------------------------------
+senseDispatchPendingStateCPU CPU例外発生時のディスパッチ保留状態の参照
+
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseDispatchPendingStateCPU([in] const void * p_exception_infomation)
+
+【パラメータ】
+	void *		p_exception_infomation	CPU例外の情報を記憶しているメモリ領域の先頭番地
+
+【統合仕様書】
+詳細は，4.10節のxsns_dpnを参照のこと．
+----------------------------------------------------------------------
+senseTaskExceptionPendingStateCPU CPU例外発生時のタスク例外処理保留状態の参照
+
+【TECSのAPI】
+	bool_t	ercd =  呼び口名_senseTaskExceptionPendingStateCPU([in] const void * p_exception_infomation)
+
+【パラメータ】
+	void *		p_exception_infomation	CPU例外の情報を記憶しているメモリ領域の先頭番地
+
+【統合仕様書】
+詳細は，4.10節のxsns_xpnを参照のこと．
+----------------------------------------------------------------------

@@ -1,0 +1,176 @@
+/*
+ *		サンプルプログラム(1)のコンポーネント記述ファイル
+ */
+
+/*
+ *  カーネルオブジェクトの定義
+ */
+import(<kernel.cdl>);
+
+/*
+ *  ターゲット依存のシステムサービスコンポーネントの定義
+ */
+import(<target_syssvc_decl.cdl>);
+
+/*
+ *  シリアルドライバの定義
+ */
+import(<syssvc/tSerialPort.cdl>);
+
+/*
+ *  システムログ機能の定義
+ */
+import(<syssvc/tSysLog.cdl>);
+
+/*
+ *  システムログタスクの定義
+ */
+import(<syssvc/tLogTask.cdl>);
+
+/*
+ *  ターゲット依存のシステムサービスコンポーネントの組み上げ記述
+ */
+import(<target_syssvc_inst.cdl>);
+
+/* mrubyの本体 */
+import(<tMruby.cdl>);
+
+// シグニチャ sSample
+signature sSample {
+	ER  sayHello( [in]int32_t times );
+	ER  howAreYou( [out,string(len)]char_t *buf, [in]int32_t len );
+};
+
+
+/*
+ * シグニチャプラグイン MrubyBridgePlugin の呼び出し。
+ */
+generate( MrubyBridgePlugin, sKernel, "" );
+generate( MrubyBridgePlugin, sSample, "" );
+
+
+
+/*
+ *  サンプルプログラムの定義
+ */
+cell nMruby::tsKernel BridgeKernel0 {
+	cTECS = ASPKernel.eKernel;
+    VMname = "Mruby0";
+};
+
+cell nMruby::tsKernel BridgeKernel2 {
+	cTECS = ASPKernel.eKernel;
+    VMname = "Mruby2";
+};
+
+//Kernel
+cell tKernel ASPKernel{
+};
+
+// セルタイプ tSample
+celltype tSample {
+	entry sSample eEnt;
+};
+
+// セル Sample
+cell tSample Sample
+{
+};
+
+cell nMruby::tsSample SimpleBridge0 {
+    cTECS = Sample.eEnt;
+    VMname = "Mruby0";
+};
+
+cell nMruby::tsSample SimpleBridge2 {
+    cTECS = Sample.eEnt;
+    VMname = "Mruby2";
+};
+
+[singleton]
+celltype tSample1 {
+	require tKernel.eKernel;// 呼び口名なし（例：delay）
+	//require cKernel = tKernel.eKernel;// 呼び口名あり（例：cKernel_delay）
+	require ciKernel = tKernel.eiKernel;// 呼び口名あり（例：ciKernel_）
+
+	call sTask          cTask;
+    /*call sMrubyBody     cMrubyBody;*/
+
+	call sSerialPort	cSerialPort;	/* シリアルドライバとの接続 */
+	call sSysLog		cSysLog;		/* システムログ機能との接続 */
+	
+	entry sTaskBody		eMainTask;	  /* Mainタスク */
+	entry sTaskExceptionBody	eSampleException;/* タスク例外処理ルーチン */
+};
+
+/*
+ *  組み上げ記述
+ */
+
+cell tSerialPort SerialPort1 {
+	/* 呼び口の結合 */
+	cSIOPort = SIOPortTarget.eSIOPort;
+	receiveBufferSize = 256;
+	sendBufferSize = 256;
+};
+
+cell tSysLog SysLog {
+	/* 呼び口の結合 */
+	cPutLog = PutLogTarget.ePutLog;
+	logBufferSize = 32;
+};
+
+cell tLogTask LogTask {
+	/* 呼び口の結合 */
+	cSerialPort = SerialPort1.eSerialPort;
+	cnSerialPort = SerialPort1.enSerialPort;
+	cSysLog = SysLog.eSysLog;
+	cPutLog = PutLogTarget.ePutLog;
+	/* 属性の設定 */
+	taskAttribute = C_EXP("TA_ACT");
+	priority = 3;
+	stackSize = LogTaskStackSize;
+	
+};
+
+cell tTask MainTask {
+	/* 呼び口の結合 */
+	cBody = Sample1.eMainTask;
+	/* 属性の設定 */
+	taskAttribute = C_EXP("TA_ACT");
+	priority = C_EXP("MAIN_PRIORITY");
+	stackSize = C_EXP("STACK_SIZE");
+};
+
+cell tSample1 Sample1 {
+	cTask =MainTask.eTask;
+
+	cSerialPort = SerialPort1.eSerialPort;
+	cSysLog = SysLog.eSysLog;
+};
+
+cell tTask MrubyTask0 {
+	cBody = Mruby0.eMrubyBody;
+	taskAttribute = C_EXP("TA_ACT");
+	priority = C_EXP("HIGH_PRIORITY");
+	stackSize = C_EXP("STACK_SIZE");
+};
+
+cell nMruby::tMruby Mruby0{
+	mrubyFile="mrb0.rb";
+	cInit = Mruby0_TECSInitializer.eInitialize;
+};
+
+
+cell tTask MrubyTask2 {
+	cBody = Mruby2.eMrubyBody;
+	taskAttribute = C_EXP("TA_ACT");
+	priority = C_EXP("LOW_PRIORITY");
+	stackSize = C_EXP("STACK_SIZE");
+};
+
+cell nMruby::tMruby Mruby2{
+	 mrubyFile="mrb2.rb";
+	 cInit = Mruby2_TECSInitializer.eInitialize;
+};
+

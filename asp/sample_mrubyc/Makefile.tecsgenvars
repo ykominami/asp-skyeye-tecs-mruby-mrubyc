@@ -1,0 +1,56 @@
+# ïœêî #_MVAR_#
+# fixed variable (unchangeable by config or plugin)
+TECSGEN_TARGET_BASE = tSample
+TECSGEN_BASE_DIR = .
+TECSGEN_GEN_DIR = $(TECSGEN_BASE_DIR)/gen
+GEN_DIR = $(TECSGEN_GEN_DIR)
+TECSGEN_INCLUDES = -I $(TECSGEN_BASE_DIR)/. -I $(TECSGEN_BASE_DIR)/./gen -I $(TECSGEN_BASE_DIR)/../tecs_kernel -I $(TECSGEN_BASE_DIR)/../tecs_lib/mrubyc -I $(TECSGEN_BASE_DIR)/../include -I $(TECSGEN_BASE_DIR)/../arch -I $(TECSGEN_BASE_DIR)/.. -I $(TECSGEN_BASE_DIR)/../../mrubyc-release1.0/src -I $(TECSGEN_BASE_DIR)/../target/at91skyeye_gcc -I $(TECSGEN_BASE_DIR)/../arch/arm_gcc/common -I $(TECSGEN_BASE_DIR)/../arch/gcc -I $(TECSPATH) -I $(TECSPATH)/mrubyc -I $(TECSPATH)/posix -I $(TECSPATH)/rpc -I $(TECSGEN_GEN_DIR)
+TECSGEN_DEFINES = -D TECS -D TECS_CPP
+
+# end of fixed variable (unchangeable by config or plugin)
+#default C Compiler
+TECSGEN_CC = gcc
+
+#default C Compiler options
+TECSGEN_CFLAGS = $(TECSGEN_INCLUDES) $(DEFINES) -D  "Inline=static inline"
+
+#default Liknker
+TECSGEN_LD = gcc
+
+#default Liknker Options
+TECSGEN_LDFLAGS = 
+
+#default source directory
+TECSGEN_SRC_DIR = $(TECSGEN_BASE_DIR)/src
+
+#default target name
+TECSGEN_TARGET = $(TECSGEN_TARGET_BASE).exe
+
+#default TECS generator
+#TECSGEN = tecsgen
+
+#Time Stamp
+TECSGEN_TIMESTAMP = $(TECSGEN_GEN_DIR)/tecsgen.timestamp
+
+#default relocatable object (.o) directory
+_TECS_OBJ_DIR = $(TECSGEN_GEN_DIR)/
+
+TECSGEN_VPATH_C = $(TECSGEN_BASE_DIR)/. $(TECSGEN_BASE_DIR)/. $(TECSGEN_BASE_DIR)/./gen $(TECSGEN_BASE_DIR)/../tecs_kernel$(TECSGEN_BASE_DIR)/../include $(TECSGEN_BASE_DIR)/../arch $(TECSGEN_BASE_DIR)/.. $(TECSGEN_BASE_DIR)/../../mrubyc/src $(TECSGEN_BASE_DIR)/../target/at91skyeye_gcc $(TECSGEN_BASE_DIR)/../arch/arm_gcc/common $(TECSGEN_BASE_DIR)/../arch/gcc $(TECSPATH) $(TECSPATH)/mrubyc $(TECSPATH)/posix $(TECSPATH)/rpc $(TECSGEN_GEN_DIR)
+TECSGEN_VPATH_H = $(TECSGEN_VPATH_C)
+
+# Pre-tecsgen target
+PRE_TECSGEN_TARGET =
+
+# Post-tecsgen target
+POST_TECSGEN_TARGET =
+
+# vpath for C sources and headers
+#vpath %.c $(SRC_DIR) $(TECSGEN_GEN_DIR)  ./gen ../tecs_kernel ../include ../arch .. ../../mrubyc-release1.0/src ../target/at91skyeye_gcc ../arch/arm_gcc/common ../arch/gcc $(TECSPATH) $(TECSPATH)/mrubyc $(TECSPATH)/posix $(TECSPATH)/rpc
+#vpath %.h $(SRC_DIR) $(TECSGEN_GEN_DIR)  ./gen ../tecs_kernel ../include ../arch .. ../../mrubyc-release1.0/src ../target/at91skyeye_gcc ../arch/arm_gcc/common ../arch/gcc $(TECSPATH) $(TECSPATH)/mrubyc $(TECSPATH)/posix $(TECSPATH)/rpc
+TECSGEN_VPATH_C := $(SRC_DIR) $(TECSGEN_GEN_DIR)  ./gen ../tecs_kernel ../include ../arch .. ../../mrubyc-release1.0/src ../target/at91skyeye_gcc ../arch/arm_gcc/common ../arch/gcc $(TECSPATH) $(TECSPATH)/mrubyc $(TECSPATH)/posix $(TECSPATH)/rpc
+TECSGEN_VPATH_H := $(TECSGEN_VPATH_C)
+
+# Other objects (out of tecsgen)
+TECSGEN_OTHER_OBJS = nMrubyc_sup.o                     # Add objects out of tecs care.
+
+OTHER_OBJS = $(_TECS_OBJ_DIR)vasyslog.o

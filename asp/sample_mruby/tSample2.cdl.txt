@@ -1,0 +1,119 @@
+/*
+ *		サンプルプログラム(1)のコンポーネント記述ファイル
+ */
+
+/*
+ *  カーネルオブジェクトの定義
+ */
+import(<kernel.cdl>);
+
+/*
+ *  ターゲット依存のシステムサービスコンポーネントの定義
+ */
+import(<target_syssvc_decl.cdl>);
+
+/*
+ *  シリアルドライバの定義
+ */
+import(<syssvc/tSerialPort.cdl>);
+
+/*
+ *  システムログ機能の定義
+ */
+import(<syssvc/tSysLog.cdl>);
+
+/*
+ *  システムログタスクの定義
+ */
+import(<syssvc/tLogTask.cdl>);
+
+/*
+ *  ターゲット依存のシステムサービスコンポーネントの組み上げ記述
+ */
+import(<target_syssvc_inst.cdl>);
+
+/* mrubyの本体 */
+import(<tMruby.cdl>);
+
+/*
+ *  サンプルプログラムの定義
+ */
+/*[singleton]
+celltype tSample {
+	require tKernel.eKernel;// 呼び口名なし（例：delay）
+	//require cKernel = tKernel.eKernel;// 呼び口名あり（例：cKernel_delay）
+	require ciKernel = tKernel.eiKernel;// 呼び口名あり（例：ciKernel_）
+	call sTask          cTask;
+    call sMrubyBody     cMrubyBody;
+
+  
+	call sSerialPort	cSerialPort;	// シリアルドライバとの接続 
+	call sSysLog		cSysLog;		// システムログ機能との接続 
+	
+	entry sTaskBody		eMainTask;	  // Mainタスク 
+};
+*/
+/*
+ *  組み上げ記述
+ */
+
+
+cell nMruby::tMruby Mruby{
+	mrubyFile="mrb_sample.rb";
+	/* cSerialPort = SerialPort1.eSerialPort;*/
+};
+
+
+cell tSerialPort SerialPort1 {
+	/* 呼び口の結合 */
+	cSIOPort = SIOPortTarget.eSIOPort;
+	receiveBufferSize = 256;
+	sendBufferSize = 256;
+};
+
+cell tSysLog SysLog {
+	/* 呼び口の結合 */
+	cPutLog = PutLogTarget.ePutLog;
+	logBufferSize = 32;
+};
+
+cell tLogTask LogTask {
+	/* 呼び口の結合 */
+	cSerialPort = SerialPort1.eSerialPort;
+	cnSerialPort = SerialPort1.enSerialPort;
+	cSysLog = SysLog.eSysLog;
+	cPutLog = PutLogTarget.ePutLog;
+	/* 属性の設定 */
+	taskAttribute = C_EXP("TA_ACT");
+	priority = 3;
+	stackSize = LogTaskStackSize;
+	
+};
+
+cell tKernel ASPKernel{
+};
+
+cell tTask MrubyTask1 {
+	/* 呼び口の結合 */
+	cBody = Mruby.eMrubyBody;
+	/* 属性の設定 */
+	taskAttribute = C_EXP("TA_ACT");
+	priority = C_EXP("MAIN_PRIORITY");
+	stackSize = C_EXP("STACK_SIZE");
+};
+
+
+cell tTask MrubyTask2 {
+	/* 呼び口の結合 */
+	cBody = Mruby2.eMrubyBody;
+	/* 属性の設定 */
+	taskAttribute = C_EXP("TA_ACT");
+	priority = C_EXP("MAIN_PRIORITY");
+	stackSize = C_EXP("STACK_SIZE");
+};
+
+
+cell nMruby::tMruby Mruby2{
+	mrubyFile= "mrb_sample2.rb";
+	/* cSerialPort = SerialPort1.eSerialPort; */
+};

@@ -1,0 +1,574 @@
+$ make
+  CC      ../../target/ev3_gcc/platform/src/ev3main.c
+../../target/ev3_gcc/platform/src/ev3main.c: In function 'ev3_main_task':
+../../target/ev3_gcc/platform/src/ev3main.c:33:5: warning: implicit declaration of function 'platform_pause_application' [-Wimplicit-function-declaration]
+     platform_pause_application(true);
+     ^
+../../target/ev3_gcc/platform/src/ev3main.c:38:5: warning: implicit declaration of function 'initialize_fatfs_dri' [-Wimplicit-function-declaration]
+     initialize_fatfs_dri();
+     ^
+../../target/ev3_gcc/platform/src/ev3main.c:43:5: warning: implicit declaration of function 'ev3rt_load_configuration' [-Wimplicit-function-declaration]
+     ev3rt_load_configuration();
+     ^
+../../target/ev3_gcc/platform/src/ev3main.c:48:5: warning: implicit declaration of function 'initialize_lcd_dri' [-Wimplicit-function-declaration]
+     initialize_lcd_dri();
+     ^
+../../target/ev3_gcc/platform/src/ev3main.c:53:5: warning: implicit declaration of function 'initialize_console_dri' [-Wimplicit-function-declaration]
+     initialize_console_dri();
+     ^
+../../target/ev3_gcc/platform/src/ev3main.c:81:21: warning: unknown escape sequence: '\/' [enabled by default]
+  syslog(LOG_NOTICE, "  / __/ | / /_  // _ \/_  __/");
+                     ^
+../../target/ev3_gcc/platform/src/ev3main.c: At top level:
+../../target/ev3_gcc/platform/src/ev3main.c:198:6: warning: conflicting types for 'platform_pause_application' [enabled by default]
+ void platform_pause_application(bool_t pause) {
+      ^
+../../target/ev3_gcc/platform/src/ev3main.c:33:5: note: previous implicit declaration of 'platform_pause_application' was here
+     platform_pause_application(true);
+     ^
+  CC      ../../target/ev3_gcc/TLSF-2.4.6/src/tlsf.c
+  CC      ../../target/ev3_gcc/drivers/common/src/driver_debug.c
+  CC      ../../target/ev3_gcc/drivers/common/src/ev3_hacks.c
+  CC      ../../target/ev3_gcc/drivers/common/src/hires_cyclic.c
+  CC      ../../target/ev3_gcc/drivers/common/src/hires_alarm.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/src/bluetooth_dri.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/src/bluetooth_init_cc2560_2.44.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/src/bluetooth_spp_slave.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/src/run_loop_toppers.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/run_loop.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/linked_list.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/bt_control_cc256x.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/hci_transport_h4_dma.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/remote_device_db_memory.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/hci.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/utils.c
+../../target/ev3_gcc/drivers/bluetooth/btstack/src/utils.c: In function 'hexdump':
+../../target/ev3_gcc/drivers/bluetooth/btstack/src/utils.c:121:10: warning: variable 'buffer' set but not used [-Wunused-but-set-variable]
+     char buffer[6*16+1];
+          ^
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/btstack_memory.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/hci_dump.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/hci_cmds.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/rfcomm.c
+../../target/ev3_gcc/drivers/bluetooth/btstack/src/rfcomm.c: In function 'rfcomm_send_uih_prepared':
+../../target/ev3_gcc/drivers/bluetooth/btstack/src/rfcomm.c:548:13: warning: unused variable 'control' [-Wunused-variable]
+     uint8_t control = BT_RFCOMM_UIH;
+             ^
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/l2cap.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/l2cap_signaling.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/sdp.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/sdp_util.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/sdp_query_rfcomm.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/sdp_parser.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/sdp_client.c
+  CC      ../../target/ev3_gcc/drivers/bluetooth/btstack/src/memory_pool.c
+  CC      ../../target/ev3_gcc/drivers/brick/src/brick_dri.c
+  CC      ../../target/ev3_gcc/drivers/brick/src/ev3cyclic_dri.c
+  CC      ../../target/ev3_gcc/drivers/console/src/console_dri.c
+../../target/ev3_gcc/drivers/console/src/console_dri.c: In function 'log_view_refresh_ex':
+../../target/ev3_gcc/drivers/console/src/console_dri.c:137:6: warning: unused variable 'columns' [-Wunused-variable]
+  int columns = (bottom_line == log_current_line) ? log_current_column : CONSOLE_LOG_VIEW_LINE_WIDTH;
+      ^
+../../target/ev3_gcc/drivers/console/src/console_dri.c: In function 'ev3rt_console_start_app':
+../../target/ev3_gcc/drivers/console/src/console_dri.c:270:2: warning: implicit declaration of function 'platform_pause_application' [-Wimplicit-function-declaration]
+  platform_pause_application(false);
+  ^
+  CC      ../../target/ev3_gcc/drivers/console/src/console_menu.c
+../../target/ev3_gcc/drivers/console/src/console_menu.c: In function 'run_app':
+../../target/ev3_gcc/drivers/console/src/console_menu.c:57:4: warning: implicit declaration of function 'ev3rt_console_start_app' [-Wimplicit-function-declaration]
+    ev3rt_console_start_app();
+    ^
+  CC      ../../target/ev3_gcc/drivers/fatfs/src/fatfs_dri.c
+  CC      ../../target/ev3_gcc/drivers/fatfs/src/diskio.c
+  CC      ../../target/ev3_gcc/drivers/fatfs/src/fatfs_syscall.c
+  CC      ../../target/ev3_gcc/drivers/fatfs/ff10b/src/ff.c
+  CC      ../../target/ev3_gcc/drivers/fatfs/starterware_c6748_mmcsd/src/mmcsd.c
+  CC      ../../target/ev3_gcc/drivers/fatfs/starterware_c6748_mmcsd/src/mmcsdlib.c
+  CC      ../../target/ev3_gcc/drivers/fatfs/src/mmcsd_dri.c
+  CC      ../../target/ev3_gcc/drivers/fatfs/starterware_c6748_mmcsd/src/mmcsd_proto.c
+  CC      ../../target/ev3_gcc/drivers/fatfs/starterware_c6748_mmcsd/src/mmcsd_rw.c
+  CC      ../../target/ev3_gcc/drivers/fatfs/ff10b/src/option/src/unicode.c
+  CC      ../../target/ev3_gcc/drivers/gpio/src/gpio_dri.c
+  CC      ../../target/ev3_gcc/drivers/lcd/src/lcd_dri.c
+  CC      ../../target/ev3_gcc/drivers/lcd/src/lcd_font.c
+  CC      ../../target/ev3_gcc/drivers/lcd/src/lcd_spi.c
+  CC      ../../target/ev3_gcc/drivers/newlib/src/newlib_dri.c
+  CC      ../../target/ev3_gcc/drivers/sensor/analog/src/analog_dri.c
+  CC      ../../target/ev3_gcc/drivers/sensor/uart/src/uart_dri.c
+In file included from ../../target/ev3_gcc/drivers/sensor/uart/src/uart_dri.c:778:0:
+../../target/ev3_gcc/drivers/sensor/uart/src/../d_uart/Linuxmod_AM1808/d_uart_mod.c: In function 'Device1TimerInterrupt1':
+../../target/ev3_gcc/drivers/sensor/uart/src/../d_uart/Linuxmod_AM1808/d_uart_mod.c:2796:31: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+                               *((ULONG*)&TypeData[Port][Mode].RawMin)  =  TmpL;
+                               ^
+../../target/ev3_gcc/drivers/sensor/uart/src/../d_uart/Linuxmod_AM1808/d_uart_mod.c:2802:31: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+                               *((ULONG*)&TypeData[Port][Mode].RawMax)  =  TmpL;
+                               ^
+../../target/ev3_gcc/drivers/sensor/uart/src/../d_uart/Linuxmod_AM1808/d_uart_mod.c:2843:31: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+                               *((ULONG*)&TypeData[Port][Mode].PctMin)  =  TmpL;
+                               ^
+../../target/ev3_gcc/drivers/sensor/uart/src/../d_uart/Linuxmod_AM1808/d_uart_mod.c:2849:31: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+                               *((ULONG*)&TypeData[Port][Mode].PctMax)  =  TmpL;
+                               ^
+../../target/ev3_gcc/drivers/sensor/uart/src/../d_uart/Linuxmod_AM1808/d_uart_mod.c:2891:31: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+                               *((ULONG*)&TypeData[Port][Mode].SiMin)  =  TmpL;
+                               ^
+../../target/ev3_gcc/drivers/sensor/uart/src/../d_uart/Linuxmod_AM1808/d_uart_mod.c:2897:31: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+                               *((ULONG*)&TypeData[Port][Mode].SiMax)  =  TmpL;
+                               ^
+  CC      ../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/src/pru.c
+  CC      ../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/src/suart_utils.c
+  CC      ../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/src/suart_api.c
+  CC      ../../target/ev3_gcc/drivers/sensor/uart/src/pru_suart.c
+  CC      ../../target/ev3_gcc/drivers/soc/src/soc_cache.c
+  CC      ../../target/ev3_gcc/drivers/soc/src/soc_edma.c
+  CC      ../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/drivers/edma.c
+  CC      ../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/drivers/uart.c
+  CC      ../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/system_config/armv5/gcc/cp15.c
+  CC      ../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/drivers/psc.c
+  CC      ../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/drivers/spi.c
+  CC      ../../target/ev3_gcc/drivers/sound/src/sound_dri.c
+  CC      ../../target/ev3_gcc/drivers/motor/src/motor_dri.c
+In file included from ../../target/ev3_gcc/drivers/motor/src/motor_dri.c:53:0:
+../../target/ev3_gcc/drivers/motor/src/../d_pwm/Linuxmod_AM1808/d_pwm.c: In function 'Device1TimerInterrupt1':
+../../target/ev3_gcc/drivers/motor/src/../d_pwm/Linuxmod_AM1808/d_pwm.c:1543:9: warning: variable 'Test' set but not used [-Wunused-but-set-variable]
+   UBYTE Test;
+         ^
+  CC      ../../target/ev3_gcc/pil/src/driver_interface_brick.c
+  CC      ../../target/ev3_gcc/pil/src/driver_interface_filesys.c
+  CC      ../../target/ev3_gcc/pil/src/driver_interface_sound.c
+  CC      ../../target/ev3_gcc/platform/src/ev3exception.c
+  CC      ../../target/ev3_gcc/platform/src/ev3rt_config.c
+In file included from ../../target/ev3_gcc/platform/src/minIni.h:22:0,
+                 from ../../target/ev3_gcc/platform/src/ev3rt_config.c:8:
+../../target/ev3_gcc/platform/src/minGlue-FatFs.h: In function 'ini_rename':
+../../target/ev3_gcc/platform/src/minGlue-FatFs.h:35:3: warning: implicit declaration of function 'strchr' [-Wimplicit-function-declaration]
+   char *drive = strchr(dest, ':');
+   ^
+../../target/ev3_gcc/platform/src/minGlue-FatFs.h:35:17: warning: incompatible implicit declaration of built-in function 'strchr' [enabled by default]
+   char *drive = strchr(dest, ':');
+                 ^
+../../target/ev3_gcc/platform/src/minGlue-FatFs.h:36:9: warning: assignment discards 'const' qualifier from pointer target type [enabled by default]
+   drive = (drive == NULL) ? dest : drive + 1;
+         ^
+../../target/ev3_gcc/platform/src/ev3rt_config.c: At top level:
+../../target/ev3_gcc/platform/src/minGlue-FatFs.h:32:12: warning: 'ini_rename' defined but not used [-Wunused-function]
+ static int ini_rename(TCHAR *source, const TCHAR *dest)
+            ^
+  CC      ../../target/ev3_gcc/platform/src/minIni.c
+In file included from ../../target/ev3_gcc/platform/src/minIni.h:22:0,
+                 from ../../target/ev3_gcc/platform/src/minIni.c:33:
+../../target/ev3_gcc/platform/src/minGlue-FatFs.h: In function 'ini_rename':
+../../target/ev3_gcc/platform/src/minGlue-FatFs.h:35:3: warning: implicit declaration of function 'strchr' [-Wimplicit-function-declaration]
+   char *drive = strchr(dest, ':');
+   ^
+../../target/ev3_gcc/platform/src/minGlue-FatFs.h:35:17: warning: incompatible implicit declaration of built-in function 'strchr' [enabled by default]
+   char *drive = strchr(dest, ':');
+                 ^
+../../target/ev3_gcc/platform/src/minGlue-FatFs.h:36:9: warning: assignment discards 'const' qualifier from pointer target type [enabled by default]
+   drive = (drive == NULL) ? dest : drive + 1;
+         ^
+../../target/ev3_gcc/platform/src/minIni.c: In function 'ini_puts':
+../../target/ev3_gcc/platform/src/minIni.c:634:21: warning: unused variable 'tail' [-Wunused-variable]
+   INI_FILEPOS head, tail;
+                     ^
+  CC      ../../target/ev3_gcc/api/src/ev3api.c
+  CC      ev3api_cfg.c
+  CC      ../../target/ev3_gcc/api/src/ev3api_battery.c
+  CC      ../../target/ev3_gcc/api/src/ev3api_brick.c
+  CC      ../../target/ev3_gcc/api/src/ev3api_fs.c
+  CC      ../../target/ev3_gcc/api/src/ev3api_speaker.c
+  CC      ../../target/ev3_gcc/api/src/ev3api_lcd.c
+  CC      ../../target/ev3_gcc/api/src/ev3api_motor.c
+  CC      ../../target/ev3_gcc/api/src/ev3api_newlib.c
+  CC      ../../target/ev3_gcc/api/src/ev3api_sensor.c
+  CC      ../../library/vasyslog.c
+  CC      ./gen/tTask_rDomainEV3_tecsgen.c
+  CC      ./gen/tKernel_rDomainEV3_tecsgen.c
+  CC      ./gen/tUltrasonicSensor_rDomainEV3_tecsgen.c
+  CC      ./gen/tColorSensor_rDomainEV3_tecsgen.c
+  CC      ./gen/tTouchSensor_rDomainEV3_tecsgen.c
+  CC      ./gen/tGyroSensor_rDomainEV3_tecsgen.c
+  CC      ./gen/tMotor_rDomainEV3_tecsgen.c
+  CC      ./gen/tButton_rDomainEV3_tecsgen.c
+  CC      ./gen/tLCD_rDomainEV3_tecsgen.c
+./gen/tLCD_rDomainEV3_tecsgen.c: In function 'tLCD_CB_initialize':
+./gen/tLCD_rDomainEV3_tecsgen.c:30:14: warning: variable 'p_cb' set but not used [-Wunused-but-set-variable]
+     tLCD_CB *p_cb;
+              
+  CC      ./gen/tLED_rDomainEV3_tecsgen.c
+  CC      ./gen/tBattery_rDomainEV3_tecsgen.c
+  CC      ./gen/tSpeaker_rDomainEV3_tecsgen.c
+  CC      ./gen/tEV3Platform_rDomainEV3_tecsgen.c
+  CC      ./gen/tBalancer_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tMruby_rDomainEV3_tecsgen.c
+./gen/nMruby_tMruby_rDomainEV3_tecsgen.c:42:9: warning: initialization from incompatible pointer type [enabled by default]
+         &rDomainEV3_Mruby_irep,                  /* irep */
+         ^
+./gen/nMruby_tMruby_rDomainEV3_tecsgen.c:42:9: warning: (near initialization for 'nMruby_tMruby_INIB_tab[0].irep') [enabled by default]
+  CC      ./gen/nMruby_tTECSInitializer_tecsgen.c
+  CC      ./gen/nMruby_tCharPointer_tecsgen.c
+  CC      ./gen/nMruby_tInt8Pointer_tecsgen.c
+  CC      ./gen/nMruby_tInt32Pointer_tecsgen.c
+  CC      ./gen/nMruby_tIntPointer_tecsgen.c
+  CC      ./gen/nMruby_tULongPointer_tecsgen.c
+  CC      ./gen/nMruby_tsKernel_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsMotor_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsLCD_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsLED_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsButton_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsBattery_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsSpeaker_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsUltrasonicSensor_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsGyroSensor_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsColorSensor_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsTouchSensor_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsBalancer_rDomainEV3_tecsgen.c
+  CC      ./gen/nMruby_tsKernel.c
+  CC      ./gen/nMruby_tsMotor.c
+  CC      ./gen/nMruby_tsLCD.c
+  CC      ./gen/nMruby_tsLED.c
+  CC      ./gen/nMruby_tsButton.c
+  CC      ./gen/nMruby_tsBattery.c
+  CC      ./gen/nMruby_tsSpeaker.c
+  CC      ./gen/nMruby_tsUltrasonicSensor.c
+  CC      ./gen/nMruby_tsGyroSensor.c
+  CC      ./gen/nMruby_tsColorSensor.c
+  CC      ./gen/nMruby_tsTouchSensor.c
+  CC      ./gen/nMruby_tsBalancer.c
+  CC      ./gen/nMruby_tsKernel_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsMotor_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsLCD_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsLED_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsButton_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsBattery_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsSpeaker_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsUltrasonicSensor_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsGyroSensor_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsColorSensor_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsTouchSensor_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsBalancer_Initializer_tecsgen.c
+  CC      ./gen/nMruby_tsKernel_Initializer.c
+./gen/nMruby_tsKernel_Initializer.c: In function 'nMruby_tsKernel_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsKernel_Initializer.c:75:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsMotor_Initializer.c
+./gen/nMruby_tsMotor_Initializer.c: In function 'nMruby_tsMotor_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsMotor_Initializer.c:61:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsLCD_Initializer.c
+./gen/nMruby_tsLCD_Initializer.c: In function 'nMruby_tsLCD_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsLCD_Initializer.c:62:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsLED_Initializer.c
+./gen/nMruby_tsLED_Initializer.c: In function 'nMruby_tsLED_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsLED_Initializer.c:55:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsButton_Initializer.c
+./gen/nMruby_tsButton_Initializer.c: In function 'nMruby_tsButton_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsButton_Initializer.c:54:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsBattery_Initializer.c
+./gen/nMruby_tsBattery_Initializer.c: In function 'nMruby_tsBattery_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsBattery_Initializer.c:55:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsSpeaker_Initializer.c
+./gen/nMruby_tsSpeaker_Initializer.c: In function 'nMruby_tsSpeaker_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsSpeaker_Initializer.c:56:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsUltrasonicSensor_Initializer.c
+./gen/nMruby_tsUltrasonicSensor_Initializer.c: In function 'nMruby_tsUltrasonicSensor_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsUltrasonicSensor_Initializer.c:56:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsGyroSensor_Initializer.c
+./gen/nMruby_tsGyroSensor_Initializer.c: In function 'nMruby_tsGyroSensor_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsGyroSensor_Initializer.c:58:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsColorSensor_Initializer.c
+./gen/nMruby_tsColorSensor_Initializer.c: In function 'nMruby_tsColorSensor_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsColorSensor_Initializer.c:57:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsTouchSensor_Initializer.c
+./gen/nMruby_tsTouchSensor_Initializer.c: In function 'nMruby_tsTouchSensor_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsTouchSensor_Initializer.c:55:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ./gen/nMruby_tsBalancer_Initializer.c
+./gen/nMruby_tsBalancer_Initializer.c: In function 'nMruby_tsBalancer_Initializer_eInitialize_initializeBridge':
+./gen/nMruby_tsBalancer_Initializer.c:55:13: warning: unused variable 'p_cellcb' [-Wunused-variable]
+     CELLCB *p_cellcb = GET_CELLCB( idx );  /* no error check */     /* MBP700 */
+             ^
+  CC      ../../tecs_kernel/tTask.c
+  CC      ../../tecs_lib/mindstorms_ev3/tUltrasonicSensor.c
+../../tecs_lib/mindstorms_ev3/tUltrasonicSensor.c: In function 'tUltrasonicSensor_eUltrasonicSensor_initializePort':
+../../tecs_lib/mindstorms_ev3/tUltrasonicSensor.c:80:5: warning: unused variable 'ercd' [-Wunused-variable]
+  ER ercd;
+     ^
+  CC      ../../tecs_lib/mindstorms_ev3/tColorSensor.c
+  CC      ../../tecs_lib/mindstorms_ev3/tTouchSensor.c
+  CC      ../../tecs_lib/mindstorms_ev3/tGyroSensor.c
+../../tecs_lib/mindstorms_ev3/tGyroSensor.c: In function 'tGyroSensor_eGyroSensor_reset':
+../../tecs_lib/mindstorms_ev3/tGyroSensor.c:70:6: warning: unused variable 'ercd' [-Wunused-variable]
+  ER  ercd = E_OK;
+      ^
+  CC      ../../tecs_lib/mindstorms_ev3/tMotor.c
+  CC      ../../tecs_lib/mindstorms_ev3/tButton.c
+../../tecs_lib/mindstorms_ev3/tButton.c: In function 'tButton_eButton_isPressed':
+../../tecs_lib/mindstorms_ev3/tButton.c:37:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+  CC      ../../tecs_lib/mindstorms_ev3/tLCD.c
+../../tecs_lib/mindstorms_ev3/tLCD.c: In function 'tLCD_eLCD_setFont':
+../../tecs_lib/mindstorms_ev3/tLCD.c:54:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+../../tecs_lib/mindstorms_ev3/tLCD.c: In function 'tLCD_eLCD_drawString':
+../../tecs_lib/mindstorms_ev3/tLCD.c:83:2: warning: passing argument 2 of 'ev3_font_get_size' from incompatible pointer type [enabled by default]
+  ev3_font_get_size(current_font, &font_width, &font_height);
+  ^
+In file included from ./gen/global_tecsgen.h:16:0,
+                 from ./gen/tLCD_tecsgen.h:20,
+                 from ../../tecs_lib/mindstorms_ev3/tLCD.c:22:
+../../target/ev3_gcc/api/src/ev3api_lcd.h:89:4: note: expected 'int32_t *' but argument is of type 'int *'
+ ER ev3_font_get_size(lcdfont_t font, int32_t *p_width, int32_t *p_height);
+    ^
+../../tecs_lib/mindstorms_ev3/tLCD.c:83:2: warning: passing argument 3 of 'ev3_font_get_size' from incompatible pointer type [enabled by default]
+  ev3_font_get_size(current_font, &font_width, &font_height);
+  ^
+In file included from ./gen/global_tecsgen.h:16:0,
+                 from ./gen/tLCD_tecsgen.h:20,
+                 from ../../tecs_lib/mindstorms_ev3/tLCD.c:22:
+../../target/ev3_gcc/api/src/ev3api_lcd.h:89:4: note: expected 'int32_t *' but argument is of type 'int *'
+ ER ev3_font_get_size(lcdfont_t font, int32_t *p_width, int32_t *p_height);
+    ^
+../../tecs_lib/mindstorms_ev3/tLCD.c:84:2: warning: implicit declaration of function 'ev3rt_console_set_visibility' [-Wimplicit-function-declaration]
+  ev3rt_console_set_visibility(false);;
+  ^
+../../tecs_lib/mindstorms_ev3/tLCD.c: In function 'tLCD_eLCD_print':
+../../tecs_lib/mindstorms_ev3/tLCD.c:122:12: warning: initialization discards 'const' qualifier from pointer target type [enabled by default]
+  char *p = str;
+            ^
+../../tecs_lib/mindstorms_ev3/tLCD.c:125:3: warning: implicit declaration of function 'ev3rt_console_log_putc' [-Wimplicit-function-declaration]
+   ev3rt_console_log_putc(*p++);
+   ^
+../../tecs_lib/mindstorms_ev3/tLCD.c:118:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+../../tecs_lib/mindstorms_ev3/tLCD.c: In function 'tLCD_eLCD_puts':
+../../tecs_lib/mindstorms_ev3/tLCD.c:141:12: warning: initialization discards 'const' qualifier from pointer target type [enabled by default]
+  char *p = str;
+            ^
+../../tecs_lib/mindstorms_ev3/tLCD.c:137:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+../../tecs_lib/mindstorms_ev3/tLCD.c: In function 'tLCD_eLCD_clear':
+../../tecs_lib/mindstorms_ev3/tLCD.c:157:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+../../tecs_lib/mindstorms_ev3/tLCD.c: In function 'tLCD_eLCD_showMessageBox':
+../../tecs_lib/mindstorms_ev3/tLCD.c:174:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+  CC      ../../tecs_lib/mindstorms_ev3/tLED.c
+../../tecs_lib/mindstorms_ev3/tLED.c: In function 'tLED_eLED_setColor':
+../../tecs_lib/mindstorms_ev3/tLED.c:37:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+../../tecs_lib/mindstorms_ev3/tLED.c: In function 'tLED_eLED_off':
+../../tecs_lib/mindstorms_ev3/tLED.c:52:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+  CC      ../../tecs_lib/mindstorms_ev3/tBattery.c
+../../tecs_lib/mindstorms_ev3/tBattery.c: In function 'tBattery_eBattery_current_mA':
+../../tecs_lib/mindstorms_ev3/tBattery.c:37:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+../../tecs_lib/mindstorms_ev3/tBattery.c: In function 'tBattery_eBattery_voltage_mV':
+../../tecs_lib/mindstorms_ev3/tBattery.c:52:10: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+  CELLCB *p_cellcb;
+          ^
+  CC      ../../tecs_lib/mindstorms_ev3/tSpeaker.c
+../../tecs_lib/mindstorms_ev3/tSpeaker.c: In function 'tSpeaker_eSpeaker_setVolume':
+../../tecs_lib/mindstorms_ev3/tSpeaker.c:37:2: warning: implicit declaration of function 'ev3_speaker_set_volume' [-Wimplicit-function-declaration]
+  return  ev3_speaker_set_volume(volume);
+  ^
+../../tecs_lib/mindstorms_ev3/tSpeaker.c: In function 'tSpeaker_eSpeaker_playTone':
+../../tecs_lib/mindstorms_ev3/tSpeaker.c:48:2: warning: implicit declaration of function 'ev3_speaker_play_tone' [-Wimplicit-function-declaration]
+  return ev3_speaker_play_tone(frequency, duration);
+  ^
+../../tecs_lib/mindstorms_ev3/tSpeaker.c: In function 'eSpeaker_playFile':
+../../tecs_lib/mindstorms_ev3/tSpeaker.c:59:2: warning: implicit declaration of function 'ev3_speaker_play_file' [-Wimplicit-function-declaration]
+  return ev3_speaker_play_file(p_memfile, duration);
+  ^
+../../tecs_lib/mindstorms_ev3/tSpeaker.c: In function 'tSpeaker_eSpeaker_stop':
+../../tecs_lib/mindstorms_ev3/tSpeaker.c:70:2: warning: implicit declaration of function 'ev3_speaker_stop' [-Wimplicit-function-declaration]
+  return ev3_speaker_stop();
+  ^
+  CC      ../../tecs_lib/mindstorms_ev3/tEV3Platform.c
+../../tecs_lib/mindstorms_ev3/tEV3Platform.c: In function 'tEV3Platform_eTaskBody_main':
+../../tecs_lib/mindstorms_ev3/tEV3Platform.c:66:13: warning: variable 'p_cellcb' set but not used [-Wunused-but-set-variable]
+     CELLCB *p_cellcb;
+             ^
+  CC      ../../tecs_lib/mindstorms_ev3/tBalancer.c
+  CC      ../../tecsgen/tecsgen/tecs/mruby/nMruby_tMruby.c
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tMruby.c: In function 'mrb_init_mrb':
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tMruby.c:101:3: warning: implicit declaration of function 'mrb_read_irep' [-Wimplicit-function-declaration]
+   mrb_irep *irep = mrb_read_irep(mrb, ATTR_irep);
+   ^
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tMruby.c:101:20: warning: initialization makes pointer from integer without a cast [enabled by default]
+   mrb_irep *irep = mrb_read_irep(mrb, ATTR_irep);
+                    ^
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tMruby.c:106:5: warning: implicit declaration of function 'exit' [-Wimplicit-function-declaration]
+     exit(0);
+     ^
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tMruby.c:106:5: warning: incompatible implicit declaration of built-in function 'exit' [enabled by default]
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tMruby.c: In function 'fputs':
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tMruby.c:170:13: warning: implicit declaration of function 'uart_send' [-Wimplicit-function-declaration]
+             while(!uart_send(&UART1, '\r'));
+             ^
+  CC      ../../tecsgen/tecsgen/tecs/mruby/nMruby_tTECSInitializer.c
+  CC      ../../tecsgen/tecsgen/tecs/mruby/nMruby_tCharPointer.c
+  CC      ../../tecsgen/tecsgen/tecs/mruby/nMruby_tInt8Pointer.c
+  CC      ../../tecsgen/tecsgen/tecs/mruby/nMruby_tInt32Pointer.c
+In file included from ../../tecsgen/tecsgen/tecs/mruby/tecs_mruby.h:13:0,
+                 from ./gen/global_tecsgen.h:11,
+                 from ./gen/nMruby_tInt32Pointer_tecsgen.h:20,
+                 from ../../tecsgen/tecsgen/tecs/mruby/nMruby_tInt32Pointer.c:8:
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tInt32Pointer.c: In function 'Int32Pointer_aget':
+../../tecsgen/tecsgen/tecs/mruby/TECSPointer.h:405:29: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+   VALCHECK_MRB_ ## Type( mrb, val );        \
+                             ^
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tInt32Pointer.c:15:1: note: in expansion of macro 'GET_SET_INT'
+ GET_SET_INT( Int32, int32_t )
+ ^
+../../tecsgen/tecsgen/tecs/mruby/TECSPointer.h:405:24: warning: statement with no effect [-Wunused-value]
+   VALCHECK_MRB_ ## Type( mrb, val );        \
+                        ^
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tInt32Pointer.c:15:1: note: in expansion of macro 'GET_SET_INT'
+ GET_SET_INT( Int32, int32_t )
+ ^
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tInt32Pointer.c: In function 'Int32Pointer_get_val':
+../../tecsgen/tecsgen/tecs/mruby/TECSPointer.h:433:29: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+   VALCHECK_MRB_ ## Type( mrb, val );        \
+                             ^
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tInt32Pointer.c:15:1: note: in expansion of macro 'GET_SET_INT'
+ GET_SET_INT( Int32, int32_t )
+ ^
+../../tecsgen/tecsgen/tecs/mruby/TECSPointer.h:433:24: warning: statement with no effect [-Wunused-value]
+   VALCHECK_MRB_ ## Type( mrb, val );        \
+                        ^
+../../tecsgen/tecsgen/tecs/mruby/nMruby_tInt32Pointer.c:15:1: note: in expansion of macro 'GET_SET_INT'
+ GET_SET_INT( Int32, int32_t )
+ ^
+  CC      ../../tecsgen/tecsgen/tecs/mruby/nMruby_tIntPointer.c
+  CC      ../../tecsgen/tecsgen/tecs/mruby/nMruby_tULongPointer.c
+  CC      rDomainEV3_Mruby_mrb.c
+  CC      ../../library/tecs_init.c
+  CC      ../../library/log_output.c
+  CC      ../../library/t_perror.c
+  CC      ../../library/strerror.c
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd   -DTOPPERS_SVC_CALL ../../tecs_lib/mindstorms_ev3/balancer/balancer.c
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd   -DTOPPERS_SVC_CALL ../../tecs_lib/mindstorms_ev3/balancer/balancer_param.c
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd   -DTOPPERS_SVC_CALL ../../target/ev3_gcc/kernel_mod/src/serial_mod.c
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd   -DTOPPERS_SVC_CALL ../../arch/arm_gcc/am1808/tl16c550.c
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd   -DTOPPERS_SVC_CALL ../../syssvc/syslog.c
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd   -DTOPPERS_SVC_CALL ../../syssvc/serial.c
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd   -DTOPPERS_SVC_CALL ../../syssvc/logtask.c
+  CC      kernel_cfg.c
+  CC      kernel_mem2.c
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd  -DALLFUNC  -DSUPPORT_XLOG_SYS -I../../kernel ../../arch/arm_gcc/am1808/chip_support.S
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd  -DALLFUNC  -DSUPPORT_XLOG_SYS -I../../kernel ../../arch/arm_gcc/common/core_support.S
+  CC[K]   ../../target/ev3_gcc/kernel_mod/src/dataqueue_mod.c
+  CC[K]   ../../target/ev3_gcc/target_config.c
+  CC[K]   ../../target/ev3_gcc/target_serial.c
+../../target/ev3_gcc/target_serial.c: In function 'lcd_snd_chr':
+../../target/ev3_gcc/target_serial.c:536:2: warning: implicit declaration of function 'ev3rt_console_log_putc' [-Wimplicit-function-declaration]
+  ev3rt_console_log_putc(c);
+  ^
+  CC[K]   ../../arch/arm_gcc/am1808/chip_config.c
+  CC[K]   ../../arch/arm_gcc/am1808/chip_timer.c
+  CC[K]   ../../arch/arm_gcc/common/core_config.c
+  CC[K]   ../../arch/arm_gcc/common/arm.c
+  CC[K]   ../../kernel/svc_table.c
+  CC[K]   ../../kernel/startup.c
+  CC[K]   ../../kernel/task.c
+  CC[K]   ../../kernel/wait.c
+  CC[K]   ../../kernel/memory.c
+  CC[K]   ../../kernel/time_event.c
+  CC[K]   ../../kernel/task_manage.c
+  CC[K]   ../../kernel/task_refer.c
+  CC[K]   ../../kernel/task_sync.c
+  CC[K]   ../../kernel/task_except.c
+  CC[K]   ../../kernel/semaphore.c
+  CC[K]   ../../kernel/eventflag.c
+  CC[K]   ../../kernel/dataqueue.c
+  CC[K]   ../../kernel/pridataq.c
+  CC[K]   ../../kernel/mutex.c
+  CC[K]   ../../kernel/mempfix.c
+  CC[K]   ../../kernel/time_manage.c
+  CC[K]   ../../kernel/cyclic.c
+  CC[K]   ../../kernel/alarm.c
+  CC[K]   ../../kernel/overrun.c
+  CC[K]   ../../kernel/sys_manage.c
+  CC[K]   ../../kernel/mem_manage.c
+  CC[K]   ../../kernel/interrupt.c
+  CC[K]   ../../kernel/exception.c
+rm -f libkernel.a
+arm-none-eabi-ar -rcs libkernel.a  chip_support.o core_support.o dataqueue_mod.o target_config.o target_serial.o chip_config.o chip_timer.o core_config.o arm.o svc_table.o startup.o task.o wait.o memory.o time_event.o task_manage.o task_refer.o task_sync.o task_except.o semaphore.o eventflag.o dataqueue.o pridataq.o mutex.o mempfix.o time_manage.o cyclic.o alarm.o overrun.o sys_manage.o mem_manage.o interrupt.o exception.o
+arm-none-eabi-ranlib libkernel.a
+arm-none-eabi-gcc -std=gnu99 -c -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd   -DTOPPERS_SVC_CALL ../../syssvc/banner.c
+arm-none-eabi-gcc -std=gnu99 -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd    -mcpu=arm926ej-s -nostdlib -mlittle-endian -N -L ../../../mruby/build/ARM/lib/ -Wl,-Ttext,0xC0008000 -Wl,-Tdata,0xC0108000 -T cfg2_out.ld  -o cfg2_out start.o  \
+                 ev3main.o tlsf.o driver_debug.o ev3_hacks.o hires_cyclic.o hires_alarm.o bluetooth_dri.o bluetooth_init_cc2560_2.44.o bluetooth_spp_slave.o run_loop_toppers.o run_loop.o linked_list.o bt_control_cc256x.o hci_transport_h4_dma.o remote_device_db_memory.o hci.o utils.o btstack_memory.o hci_dump.o hci_cmds.o rfcomm.o l2cap.o l2cap_signaling.o sdp.o sdp_util.o sdp_query_rfcomm.o sdp_parser.o sdp_client.o memory_pool.o brick_dri.o ev3cyclic_dri.o console_dri.o console_menu.o fatfs_dri.o diskio.o fatfs_syscall.o ff.o mmcsd.o mmcsdlib.o mmcsd_dri.o mmcsd_proto.o mmcsd_rw.o unicode.o gpio_dri.o lcd_dri.o lcd_font.o lcd_spi.o newlib_dri.o analog_dri.o uart_dri.o pru.o suart_utils.o suart_api.o pru_suart.o soc_cache.o soc_edma.o edma.o uart.o cp15.o psc.o spi.o sound_dri.o motor_dri.o driver_interface_brick.o driver_interface_filesys.o driver_interface_sound.o ev3exception.o ev3rt_config.o minIni.o ev3api.o ev3api_cfg.o ev3api_battery.o ev3api_brick.o ev3api_fs.o ev3api_speaker.o ev3api_lcd.o ev3api_motor.o ev3api_newlib.o ev3api_sensor.o vasyslog.o  tTask_rDomainEV3_tecsgen.o tKernel_rDomainEV3_tecsgen.o tUltrasonicSensor_rDomainEV3_tecsgen.o tColorSensor_rDomainEV3_tecsgen.o tTouchSensor_rDomainEV3_tecsgen.o tGyroSensor_rDomainEV3_tecsgen.o tMotor_rDomainEV3_tecsgen.o tButton_rDomainEV3_tecsgen.o tLCD_rDomainEV3_tecsgen.o tLED_rDomainEV3_tecsgen.o tBattery_rDomainEV3_tecsgen.o tSpeaker_rDomainEV3_tecsgen.o tEV3Platform_rDomainEV3_tecsgen.o tBalancer_rDomainEV3_tecsgen.o nMruby_tMruby_rDomainEV3_tecsgen.o  nMruby_tTECSInitializer_tecsgen.o nMruby_tCharPointer_tecsgen.o nMruby_tInt8Pointer_tecsgen.o nMruby_tInt32Pointer_tecsgen.o nMruby_tIntPointer_tecsgen.o nMruby_tULongPointer_tecsgen.o   nMruby_tsKernel_rDomainEV3_tecsgen.o nMruby_tsMotor_rDomainEV3_tecsgen.o nMruby_tsLCD_rDomainEV3_tecsgen.o nMruby_tsLED_rDomainEV3_tecsgen.o nMruby_tsButton_rDomainEV3_tecsgen.o nMruby_tsBattery_rDomainEV3_tecsgen.o nMruby_tsSpeaker_rDomainEV3_tecsgen.o nMruby_tsUltrasonicSensor_rDomainEV3_tecsgen.o nMruby_tsGyroSensor_rDomainEV3_tecsgen.o nMruby_tsColorSensor_rDomainEV3_tecsgen.o nMruby_tsTouchSensor_rDomainEV3_tecsgen.o nMruby_tsBalancer_rDomainEV3_tecsgen.o nMruby_tsKernel.o nMruby_tsMotor.o nMruby_tsLCD.o nMruby_tsLED.o nMruby_tsButton.o nMruby_tsBattery.o nMruby_tsSpeaker.o nMruby_tsUltrasonicSensor.o nMruby_tsGyroSensor.o nMruby_tsColorSensor.o nMruby_tsTouchSensor.o nMruby_tsBalancer.o  nMruby_tsKernel_Initializer_tecsgen.o nMruby_tsMotor_Initializer_tecsgen.o nMruby_tsLCD_Initializer_tecsgen.o nMruby_tsLED_Initializer_tecsgen.o nMruby_tsButton_Initializer_tecsgen.o nMruby_tsBattery_Initializer_tecsgen.o nMruby_tsSpeaker_Initializer_tecsgen.o nMruby_tsUltrasonicSensor_Initializer_tecsgen.o nMruby_tsGyroSensor_Initializer_tecsgen.o nMruby_tsColorSensor_Initializer_tecsgen.o nMruby_tsTouchSensor_Initializer_tecsgen.o nMruby_tsBalancer_Initializer_tecsgen.o nMruby_tsKernel_Initializer.o nMruby_tsMotor_Initializer.o nMruby_tsLCD_Initializer.o nMruby_tsLED_Initializer.o nMruby_tsButton_Initializer.o nMruby_tsBattery_Initializer.o nMruby_tsSpeaker_Initializer.o nMruby_tsUltrasonicSensor_Initializer.o nMruby_tsGyroSensor_Initializer.o nMruby_tsColorSensor_Initializer.o nMruby_tsTouchSensor_Initializer.o nMruby_tsBalancer_Initializer.o   tTask.o tUltrasonicSensor.o tColorSensor.o tTouchSensor.o tGyroSensor.o tMotor.o tButton.o tLCD.o tLED.o tBattery.o tSpeaker.o tEV3Platform.o tBalancer.o nMruby_tMruby.o  nMruby_tTECSInitializer.o nMruby_tCharPointer.o nMruby_tInt8Pointer.o nMruby_tInt32Pointer.o nMruby_tIntPointer.o nMruby_tULongPointer.o   rDomainEV3_Mruby_mrb.o tecs_init.o  log_output.o t_perror.o strerror.o   ../../../mruby/build/ARM/lib/libmruby.a -lm  balancer.o balancer_param.o  serial_mod.o tl16c550.o banner.o syslog.o serial.o logtask.o   kernel_cfg.o kernel_mem2.o    libkernel.a -lc -lm -lgcc
+arm-none-eabi-nm -n cfg2_out > cfg2_out.syms
+arm-none-eabi-objcopy -O srec -S cfg2_out cfg2_out.srec
+rm -f cfg3_out.ld
+../../cfg/cfg/cfg --pass 3 --kernel hrp2 -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd  \
+                        --rom-image cfg2_out.srec --symbol-table cfg2_out.syms \
+                        -T ../../target/ev3_gcc/target_opt.tf --api-table ../../kernel/kernel_api.csv --cfg1-def-table ../../kernel/kernel_def.csv  --cfg1-def-table ../../arch/arm_gcc/am1808/chip_def.csv  --cfg1-def-table ../../arch/arm_gcc/common/core_def.csv --api-table ../../target/ev3_gcc/api/ev3api.csv tEV3Sample.cfg
+
+if ! [ -f cfg3_out.ld ]; then \
+        sed "s/kernel_mem2\.o/kernel_mem3\.o/g" < cfg2_out.ld \
+                                                                                                > cfg3_out.ld; \
+fi
+  CC      kernel_mem3.c
+arm-none-eabi-gcc -std=gnu99 -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd    -mcpu=arm926ej-s -nostdlib -mlittle-endian -N -L ../../../mruby/build/ARM/lib/ -Wl,-Ttext,0xC0008000 -Wl,-Tdata,0xC0108000 -T cfg3_out.ld -o cfg3_out start.o \
+                 ev3main.o tlsf.o driver_debug.o ev3_hacks.o hires_cyclic.o hires_alarm.o bluetooth_dri.o bluetooth_init_cc2560_2.44.o bluetooth_spp_slave.o run_loop_toppers.o run_loop.o linked_list.o bt_control_cc256x.o hci_transport_h4_dma.o remote_device_db_memory.o hci.o utils.o btstack_memory.o hci_dump.o hci_cmds.o rfcomm.o l2cap.o l2cap_signaling.o sdp.o sdp_util.o sdp_query_rfcomm.o sdp_parser.o sdp_client.o memory_pool.o brick_dri.o ev3cyclic_dri.o console_dri.o console_menu.o fatfs_dri.o diskio.o fatfs_syscall.o ff.o mmcsd.o mmcsdlib.o mmcsd_dri.o mmcsd_proto.o mmcsd_rw.o unicode.o gpio_dri.o lcd_dri.o lcd_font.o lcd_spi.o newlib_dri.o analog_dri.o uart_dri.o pru.o suart_utils.o suart_api.o pru_suart.o soc_cache.o soc_edma.o edma.o uart.o cp15.o psc.o spi.o sound_dri.o motor_dri.o driver_interface_brick.o driver_interface_filesys.o driver_interface_sound.o ev3exception.o ev3rt_config.o minIni.o ev3api.o ev3api_cfg.o ev3api_battery.o ev3api_brick.o ev3api_fs.o ev3api_speaker.o ev3api_lcd.o ev3api_motor.o ev3api_newlib.o ev3api_sensor.o vasyslog.o  tTask_rDomainEV3_tecsgen.o tKernel_rDomainEV3_tecsgen.o tUltrasonicSensor_rDomainEV3_tecsgen.o tColorSensor_rDomainEV3_tecsgen.o tTouchSensor_rDomainEV3_tecsgen.o tGyroSensor_rDomainEV3_tecsgen.o tMotor_rDomainEV3_tecsgen.o tButton_rDomainEV3_tecsgen.o tLCD_rDomainEV3_tecsgen.o tLED_rDomainEV3_tecsgen.o tBattery_rDomainEV3_tecsgen.o tSpeaker_rDomainEV3_tecsgen.o tEV3Platform_rDomainEV3_tecsgen.o tBalancer_rDomainEV3_tecsgen.o nMruby_tMruby_rDomainEV3_tecsgen.o  nMruby_tTECSInitializer_tecsgen.o nMruby_tCharPointer_tecsgen.o nMruby_tInt8Pointer_tecsgen.o nMruby_tInt32Pointer_tecsgen.o nMruby_tIntPointer_tecsgen.o nMruby_tULongPointer_tecsgen.o   nMruby_tsKernel_rDomainEV3_tecsgen.o nMruby_tsMotor_rDomainEV3_tecsgen.o nMruby_tsLCD_rDomainEV3_tecsgen.o nMruby_tsLED_rDomainEV3_tecsgen.o nMruby_tsButton_rDomainEV3_tecsgen.o nMruby_tsBattery_rDomainEV3_tecsgen.o nMruby_tsSpeaker_rDomainEV3_tecsgen.o nMruby_tsUltrasonicSensor_rDomainEV3_tecsgen.o nMruby_tsGyroSensor_rDomainEV3_tecsgen.o nMruby_tsColorSensor_rDomainEV3_tecsgen.o nMruby_tsTouchSensor_rDomainEV3_tecsgen.o nMruby_tsBalancer_rDomainEV3_tecsgen.o nMruby_tsKernel.o nMruby_tsMotor.o nMruby_tsLCD.o nMruby_tsLED.o nMruby_tsButton.o nMruby_tsBattery.o nMruby_tsSpeaker.o nMruby_tsUltrasonicSensor.o nMruby_tsGyroSensor.o nMruby_tsColorSensor.o nMruby_tsTouchSensor.o nMruby_tsBalancer.o  nMruby_tsKernel_Initializer_tecsgen.o nMruby_tsMotor_Initializer_tecsgen.o nMruby_tsLCD_Initializer_tecsgen.o nMruby_tsLED_Initializer_tecsgen.o nMruby_tsButton_Initializer_tecsgen.o nMruby_tsBattery_Initializer_tecsgen.o nMruby_tsSpeaker_Initializer_tecsgen.o nMruby_tsUltrasonicSensor_Initializer_tecsgen.o nMruby_tsGyroSensor_Initializer_tecsgen.o nMruby_tsColorSensor_Initializer_tecsgen.o nMruby_tsTouchSensor_Initializer_tecsgen.o nMruby_tsBalancer_Initializer_tecsgen.o nMruby_tsKernel_Initializer.o nMruby_tsMotor_Initializer.o nMruby_tsLCD_Initializer.o nMruby_tsLED_Initializer.o nMruby_tsButton_Initializer.o nMruby_tsBattery_Initializer.o nMruby_tsSpeaker_Initializer.o nMruby_tsUltrasonicSensor_Initializer.o nMruby_tsGyroSensor_Initializer.o nMruby_tsColorSensor_Initializer.o nMruby_tsTouchSensor_Initializer.o nMruby_tsBalancer_Initializer.o   tTask.o tUltrasonicSensor.o tColorSensor.o tTouchSensor.o tGyroSensor.o tMotor.o tButton.o tLCD.o tLED.o tBattery.o tSpeaker.o tEV3Platform.o tBalancer.o nMruby_tMruby.o  nMruby_tTECSInitializer.o nMruby_tCharPointer.o nMruby_tInt8Pointer.o nMruby_tInt32Pointer.o nMruby_tIntPointer.o nMruby_tULongPointer.o   rDomainEV3_Mruby_mrb.o tecs_init.o  log_output.o t_perror.o strerror.o   ../../../mruby/build/ARM/lib/libmruby.a -lm  balancer.o balancer_param.o  serial_mod.o tl16c550.o banner.o syslog.o serial.o logtask.o   kernel_cfg.o kernel_mem3.o    libkernel.a -lc -lm -lgcc  -lm
+arm-none-eabi-nm -n cfg3_out > cfg3_out.syms
+arm-none-eabi-objcopy -O srec -S cfg3_out cfg3_out.srec
+rm -f ldscript.ld
+../../cfg/cfg/cfg --pass 4 --kernel hrp2 -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd  \
+                        --rom-image cfg3_out.srec --symbol-table cfg3_out.syms \
+                        -T ../../target/ev3_gcc/target_mem.tf --api-table ../../kernel/kernel_api.csv --cfg1-def-table ../../kernel/kernel_def.csv  --cfg1-def-table ../../arch/arm_gcc/am1808/chip_def.csv  --cfg1-def-table ../../arch/arm_gcc/common/core_def.csv --api-table ../../target/ev3_gcc/api/ev3api.csv tEV3Sample.cfg
+
+cfg: warning: 15% of the allocated page table area is used
+cfg: warning: 2/130 of the allocated nonglobal page entries area is used
+check complete
+if ! [ -f ldscript.ld ]; then \
+        sed "s/kernel_mem3\.o/kernel_mem\.o/g" < cfg3_out.ld \
+                                                                                                                > ldscript.ld; \
+fi
+  CC      kernel_mem.c
+arm-none-eabi-gcc -std=gnu99 -Dgcc -Dam1808 -mcpu=arm926ej-s -mlittle-endian -DUSE_CFG_PASS3 -g  -Wall -O2 -DBUILD_EV3_PLATFORM -DCONFIG_FB_DEFERRED_IO -D__KERNEL__ -D__TARGET_ARCH_ARM=5  -I. -I./gen -I../../tecs_kernel -I../../tecs_plugin -I../../include -I../../arch -I../.. -I../../target/ev3_gcc/api/src -I../../../mruby/include -I../../tecs_lib/mindstorms_ev3/ -I../../tecsgen/tecsgen/tecs/mruby -I../../tecsgen/tecsgen/tecs/posix -I../../tecs_lib/mindstorms_ev3/balancer  -I../../target/ev3_gcc/drivers -I../../target/ev3_gcc/drivers/soc//AM1808_StarterWare_1_00_03_03/include/hw -I../../target/ev3_gcc -I../../target/ev3_gcc/api/include -I../../target/ev3_gcc/dmloader/app/include -I../../target/ev3_gcc/dmloader/include -I../../target/ev3_gcc/drivers/bluetooth/btstack/include -I../../target/ev3_gcc/drivers/bluetooth/include -I../../target/ev3_gcc/drivers/brick/include -I../../target/ev3_gcc/drivers/common/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/arch/arm/include -I../../target/ev3_gcc/drivers/common/virtual-linux-kernel/include -I../../target/ev3_gcc/drivers/console/include -I../../target/ev3_gcc/drivers/fatfs/include -I../../target/ev3_gcc/drivers/gpio/include -I../../target/ev3_gcc/drivers/lcd/include -I../../target/ev3_gcc/drivers/lcd/linux/include -I../../target/ev3_gcc/drivers/linux/arch/arm/include -I../../target/ev3_gcc/drivers/linux/arch/arm/mach-davinci/include -I../../target/ev3_gcc/drivers/linux/include -I../../target/ev3_gcc/drivers/motor/include -I../../target/ev3_gcc/drivers/newlib/include -I../../target/ev3_gcc/drivers/sensor/analog/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/common/include -I../../target/ev3_gcc/drivers/sensor/uart/d_uart/Linuxmod_AM1808/pru-firmware-05-31-2011-1423-v3.0/pru/hal/uart/include -I../../target/ev3_gcc/drivers/sensor/uart/include -I../../target/ev3_gcc/drivers/soc/AM1808_StarterWare_1_00_03_03/include -I../../target/ev3_gcc/drivers/soc/include -I../../target/ev3_gcc/drivers/sound/include -I../../target/ev3_gcc/kernel_mod/include -I../../target/ev3_gcc/pil/include -I../../target/ev3_gcc/platform/include -I../../target/ev3_gcc/TLSF-2.4.6/include -I../../arch/arm_gcc/am1808 -I../../arch/arm_gcc/common -I../../arch/gcc -I../../target/ev3_gcc/api -I../sd/../common -I../sd   -mcpu=arm926ej-s -nostdlib -mlittle-endian -L ../../../mruby/build/ARM/lib/ -Wl,-Ttext,0xC0008000 -Wl,-Tdata,0xC0108000 -T ldscript.ld -o hrp2 start.o \
+                 ev3main.o tlsf.o driver_debug.o ev3_hacks.o hires_cyclic.o hires_alarm.o bluetooth_dri.o bluetooth_init_cc2560_2.44.o bluetooth_spp_slave.o run_loop_toppers.o run_loop.o linked_list.o bt_control_cc256x.o hci_transport_h4_dma.o remote_device_db_memory.o hci.o utils.o btstack_memory.o hci_dump.o hci_cmds.o rfcomm.o l2cap.o l2cap_signaling.o sdp.o sdp_util.o sdp_query_rfcomm.o sdp_parser.o sdp_client.o memory_pool.o brick_dri.o ev3cyclic_dri.o console_dri.o console_menu.o fatfs_dri.o diskio.o fatfs_syscall.o ff.o mmcsd.o mmcsdlib.o mmcsd_dri.o mmcsd_proto.o mmcsd_rw.o unicode.o gpio_dri.o lcd_dri.o lcd_font.o lcd_spi.o newlib_dri.o analog_dri.o uart_dri.o pru.o suart_utils.o suart_api.o pru_suart.o soc_cache.o soc_edma.o edma.o uart.o cp15.o psc.o spi.o sound_dri.o motor_dri.o driver_interface_brick.o driver_interface_filesys.o driver_interface_sound.o ev3exception.o ev3rt_config.o minIni.o ev3api.o ev3api_cfg.o ev3api_battery.o ev3api_brick.o ev3api_fs.o ev3api_speaker.o ev3api_lcd.o ev3api_motor.o ev3api_newlib.o ev3api_sensor.o vasyslog.o  tTask_rDomainEV3_tecsgen.o tKernel_rDomainEV3_tecsgen.o tUltrasonicSensor_rDomainEV3_tecsgen.o tColorSensor_rDomainEV3_tecsgen.o tTouchSensor_rDomainEV3_tecsgen.o tGyroSensor_rDomainEV3_tecsgen.o tMotor_rDomainEV3_tecsgen.o tButton_rDomainEV3_tecsgen.o tLCD_rDomainEV3_tecsgen.o tLED_rDomainEV3_tecsgen.o tBattery_rDomainEV3_tecsgen.o tSpeaker_rDomainEV3_tecsgen.o tEV3Platform_rDomainEV3_tecsgen.o tBalancer_rDomainEV3_tecsgen.o nMruby_tMruby_rDomainEV3_tecsgen.o  nMruby_tTECSInitializer_tecsgen.o nMruby_tCharPointer_tecsgen.o nMruby_tInt8Pointer_tecsgen.o nMruby_tInt32Pointer_tecsgen.o nMruby_tIntPointer_tecsgen.o nMruby_tULongPointer_tecsgen.o   nMruby_tsKernel_rDomainEV3_tecsgen.o nMruby_tsMotor_rDomainEV3_tecsgen.o nMruby_tsLCD_rDomainEV3_tecsgen.o nMruby_tsLED_rDomainEV3_tecsgen.o nMruby_tsButton_rDomainEV3_tecsgen.o nMruby_tsBattery_rDomainEV3_tecsgen.o nMruby_tsSpeaker_rDomainEV3_tecsgen.o nMruby_tsUltrasonicSensor_rDomainEV3_tecsgen.o nMruby_tsGyroSensor_rDomainEV3_tecsgen.o nMruby_tsColorSensor_rDomainEV3_tecsgen.o nMruby_tsTouchSensor_rDomainEV3_tecsgen.o nMruby_tsBalancer_rDomainEV3_tecsgen.o nMruby_tsKernel.o nMruby_tsMotor.o nMruby_tsLCD.o nMruby_tsLED.o nMruby_tsButton.o nMruby_tsBattery.o nMruby_tsSpeaker.o nMruby_tsUltrasonicSensor.o nMruby_tsGyroSensor.o nMruby_tsColorSensor.o nMruby_tsTouchSensor.o nMruby_tsBalancer.o  nMruby_tsKernel_Initializer_tecsgen.o nMruby_tsMotor_Initializer_tecsgen.o nMruby_tsLCD_Initializer_tecsgen.o nMruby_tsLED_Initializer_tecsgen.o nMruby_tsButton_Initializer_tecsgen.o nMruby_tsBattery_Initializer_tecsgen.o nMruby_tsSpeaker_Initializer_tecsgen.o nMruby_tsUltrasonicSensor_Initializer_tecsgen.o nMruby_tsGyroSensor_Initializer_tecsgen.o nMruby_tsColorSensor_Initializer_tecsgen.o nMruby_tsTouchSensor_Initializer_tecsgen.o nMruby_tsBalancer_Initializer_tecsgen.o nMruby_tsKernel_Initializer.o nMruby_tsMotor_Initializer.o nMruby_tsLCD_Initializer.o nMruby_tsLED_Initializer.o nMruby_tsButton_Initializer.o nMruby_tsBattery_Initializer.o nMruby_tsSpeaker_Initializer.o nMruby_tsUltrasonicSensor_Initializer.o nMruby_tsGyroSensor_Initializer.o nMruby_tsColorSensor_Initializer.o nMruby_tsTouchSensor_Initializer.o nMruby_tsBalancer_Initializer.o   tTask.o tUltrasonicSensor.o tColorSensor.o tTouchSensor.o tGyroSensor.o tMotor.o tButton.o tLCD.o tLED.o tBattery.o tSpeaker.o tEV3Platform.o tBalancer.o nMruby_tMruby.o  nMruby_tTECSInitializer.o nMruby_tCharPointer.o nMruby_tInt8Pointer.o nMruby_tInt32Pointer.o nMruby_tIntPointer.o nMruby_tULongPointer.o   rDomainEV3_Mruby_mrb.o tecs_init.o  log_output.o t_perror.o strerror.o   ../../../mruby/build/ARM/lib/libmruby.a -lm  balancer.o balancer_param.o  serial_mod.o tl16c550.o banner.o syslog.o serial.o logtask.o   kernel_cfg.o kernel_mem.o    libkernel.a -lc -lm -lgcc
+arm-none-eabi-nm -n hrp2 > hrp2.syms
+diff cfg3_out.syms hrp2.syms
+arm-none-eabi-objcopy -O binary -S hrp2 hrp2.bin
+../../../bin/mkimage.exe -A arm -O linux -T kernel -C none -a 0xc0008000 -e 0xc0008000 -n "hrp2 kernel" -d hrp2.bin uImage
+Image Name:   hrp2 kernel
+Created:      Sat Mar 25 15:25:35 2017
+Image Type:   ARM Linux Kernel Image (uncompressed)
+Data Size:    865596 Bytes = 845.31 kB = 0.83 MB
+Load Address: c0008000
+Entry Point:  c0008000
+chmod +x uImage
+cp uImage /cygdrive/h/
+cp: í èÌÉtÉ@ÉCÉã '/cygdrive/h/' ÇçÏê¨Ç≈Ç´Ç‹ÇπÇÒ: No medium found

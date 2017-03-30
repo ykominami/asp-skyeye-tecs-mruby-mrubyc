@@ -1,0 +1,66 @@
+# ÉãÅ[Éã #_MRUL_#
+#allall: tecs
+#	make all     # in order to include generated Makefile.tecsgen & Makefile.depend
+#
+#all : $(TARGET)
+#
+#
+## depend Ç include #_MDEP_#
+#-include $(GEN_DIR)/Makefile.tecsgen
+#-include $(GEN_DIR)/Makefile.depend
+#
+#$(TARGET) : $(TIMESTAMP) $(CELLTYPE_COBJS) $(TECSGEN_COBJS) $(PLUGIN_COBJS) $(OTHER_OBJS)
+#	$(LD) -o $(TARGET) $(TECSGEN_COBJS) $(CELLTYPE_COBJS) $(PLUGIN_COBJS) $(OTHER_OBJS) $(LDFLAGS)
+#
+#clean :
+#	rm -f $(CELLTYPE_COBJS) $(TECSGEN_COBJS) $(PLUGIN_COBJS) $(OTHER_OBJS) $(TARGET)  $(TIMESTAMP)
+#	rm -rf $(GEN_DIR)
+#
+#tecs : $(PRE_TECSGEN_TARGET) $(TIMESTAMP) $(POST_TECSGEN_TARGET)
+#
+#$(TIMESTAMP) : $(TECS_IMPORTS)
+#	$(TECSGEN)  -R -D TECS -D TECS_CPP -I. -I./gen -I../tecs_kernel -I../tecs_lib/mruby -I../include -I../arch -I.. -I../../mruby/include -I../target/at91skyeye_gcc -I../arch/arm_gcc/common -I../arch/gcc tSample.cdl
+# generic target for objs
+
+$(_TECS_OBJ_DIR)%.o : %.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+
+$(_TECS_OBJ_DIR)tTask.o : tTask.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tInitializeRoutine.o : tInitializeRoutine.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tTerminateRoutine.o : tTerminateRoutine.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tISR.o : tISR.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tConfigInterrupt.o : tConfigInterrupt.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tSemaphore.o : tSemaphore.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tKernel.o : tKernel.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tSIOPortSkyeyeMain.o : tSIOPortSkyeyeMain.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tPutLogSkyeye.o : tPutLogSkyeye.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tSerialPortMain.o : tSerialPortMain.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tSysLog.o : tSysLog.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+$(_TECS_OBJ_DIR)tLogTaskMain.o : tLogTaskMain.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+ 
+#$(_TECS_OBJ_DIR)nMruby_tMruby.o : nMruby_tMruby.c
+#	$(CC) -c $(CFLAGS) -o $@ $<
+ 

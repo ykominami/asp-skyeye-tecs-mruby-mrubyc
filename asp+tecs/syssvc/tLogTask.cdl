@@ -1,0 +1,81 @@
+/*
+ *  @(#) $Id: tLogTask.cdl 426 2009-07-17 05:06:29Z ertl-takuya $
+ */
+
+/*
+ *		システムログタスクのコンポーネント記述ファイル
+ */
+
+signature sLogTask {
+	ER		flush([in] uint_t count);
+};
+
+[singleton]
+celltype tLogTaskMain{
+	entry sTaskBody		eLogTaskBody;
+	entry sLogTask		eLogTask;
+	call sSerialPort	cSerialPort;	/* シリアルドライバとの接続 */
+	call snSerialPort	cnSerialPort;	/* シリアルドライバ管理との接続 */
+	call sSysLog		cSysLog;		/* システムログ機能との接続 */
+	call sPutLog		cPutLog;		/* 低レベル出力との接続 */
+
+	attr {
+		RELTIM	interval = 10;			/* タスクの動作間隔 */
+		RELTIM	flushWait = 1;			/* フラッシュ待ちの単位時間 */
+	};
+	factory {
+		write("tecsgen.cfg", "ATT_TER({ TA_NULL, 0, tLogTask_terminate });");
+	};
+	FACTORY {
+		write("tecsgen.cfg", "#include \"syssvc/tLogTask.h\"");
+	};
+};
+[singleton,active]
+composite tLogTask{
+	entry sTaskBody		eLogTaskBody;
+	entry sTask       	eTask;	/* タスク操作（タスクコンテキスト用）*/
+	entry siTask    	eiTask;	/* タスク操作（非タスクコンテキスト用）*/
+    [optional] call	sTaskExceptionBody	cExceptionBody;
+
+	entry sLogTask		eLogTask;
+	
+	call sSerialPort	cSerialPort;	/* シリアルドライバとの接続 */
+	call snSerialPort	cnSerialPort;	/* シリアルドライバ管理との接続 */
+	call sSysLog		cSysLog;		/* システムログ機能との接続 */
+	call sPutLog		cPutLog;		/* 低レベル出力との接続 */
+
+	attr {
+		[omit] ATR		taskAttribute = C_EXP("TA_NULL");
+		[omit] ATR		exceptionAttribute= C_EXP("TA_NULL");
+		[omit] PRI  	priority;			/* タスクの初期優先度 */
+		[omit] SIZE 	stackSize;			/* タスクのスタックサイズ */
+		RELTIM	interval = 10;			/* タスクの動作間隔 */
+		RELTIM	flushWait = 1;			/* フラッシュ待ちの単位時間 */
+	};
+	cell tLogTaskMain LogTaskMain{
+		/* 呼び口 */
+		cSerialPort  => composite.cSerialPort;
+		cnSerialPort => composite.cnSerialPort;
+		cSysLog      => composite.cSysLog;
+		cPutLog      => composite.cPutLog;
+		/* 属性 */
+		interval     =  composite.interval;
+		flushWait   =  composite.flushWait;
+	};
+	cell tTask Task{
+		/* 呼び口 */
+		cBody         =  LogTaskMain.eLogTaskBody;
+		cExceptionBody=> composite.cExceptionBody;
+		/* 属性 */
+		taskAttribute = composite.taskAttribute;
+		exceptionAttribute = composite.exceptionAttribute;
+		priority      = composite.priority;
+		stackSize    = composite.stackSize;
+	};
+	/* 受け口 */
+	composite.eLogTaskBody => LogTaskMain.eLogTaskBody;
+	composite.eLogTask     => LogTaskMain.eLogTask;
+	composite.eTask        => Task.eTask;
+	composite.eiTask       => Task.eiTask;
+};
+
